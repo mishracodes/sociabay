@@ -3,7 +3,7 @@ import './MainAreaDefault.css'
 
 const MainAreaDefault = () => {
   return (
-    <div className='rightMainArea'>MainAreaDefault</div>
+    <div className='rightMainArea'>MainAreaDefaultNew</div>
   )
 }
 
