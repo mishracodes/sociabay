@@ -13,6 +13,19 @@ const ChatRooms = () => {
       <ChatRoomItems/>
       <ChatRoomItems/>
       <ChatRoomItems/>
+      <ChatRoomItems/>
+      <ChatRoomItems/>
+      <ChatRoomItems/>
+      <ChatRoomItems/>
+      <ChatRoomItems/>
+      <ChatRoomItems/>
+      <ChatRoomItems/>
+      <ChatRoomItems/>
+      <ChatRoomItems/>
+      <ChatRoomItems/>
+      <ChatRoomItems/>
+      <ChatRoomItems/>
+      <ChatRoomItems/>
     </div>
   )
 }
