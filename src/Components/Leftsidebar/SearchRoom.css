@@ -1,0 +1,26 @@
+.searchrooms__container{
+    flex: 0.05;
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+}
+.searchrooms__input{
+    outline: 0;
+    border: none;
+    background-color: #343645;
+    border-radius: 5px;
+    flex-grow: 1;
+    color: #60717F;
+    padding: 0 0 0 10px;
+    font-size: 15px;
+
+}
+.searchrooms__form{
+    background-color: #343645;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 12px;
+    flex-grow: 1;
+}

@@ -1,0 +1,45 @@
+.chatroomitems__container {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+}
+.chatroomitems__container:hover {
+  background-color: #4b4b4b;
+}
+.chatroomitems__container:hover #animRight {
+    position: relative;
+    animation: chatRoomMoreActions 0.2s forwards;
+  }
+.chatroomitem_detail {
+  margin-left: 13px;
+  flex-grow: 1;
+}
+.chatroomitem_name {
+  font-size: 17px;
+  color: #ffffff;
+}
+.chatroomitem_lastMessage {
+  font-size: 14px;
+  color: #b0b0b7;
+}
+.chatroomitem_timestamp {
+  font-size: 12px;
+  color: #b0b0b7;
+}
+.chatroomitem_moreActions {
+  color: #b0b0b7;
+  opacity: 0;
+}
+@keyframes chatRoomMoreActions {
+  from {
+    right: -10px;
+    opacity: 0;
+  }
+  to {
+    right: 0;
+    opacity: 1;
+  }
+}
+.recieved__status{
+  font-size: 15px;
+}
