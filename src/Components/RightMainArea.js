@@ -13,9 +13,9 @@ const RightMainArea = () => {
 
   const { id } = useParams();
   const location = useLocation().state;
-  const [name, setname] = useState()
-  const [profileURL, setprofileURL] = useState()
-  
+  const [name, setname] = useState();
+  const [profileURL, setprofileURL] = useState();
+
   const getDetails = async (id) => {
     if (id) {
       const docRef = doc(db, "rooms", id);
@@ -29,30 +29,28 @@ const RightMainArea = () => {
     }
   };
   useEffect(() => {
-    if(!location){
+    if (!location) {
       navigate("/home");
-    }
-    else if (!localStorage.getItem("email")) {
+    } else if (!localStorage.getItem("email")) {
       navigate("/");
-    } 
-    else{
-      setname(location.name)
-      setprofileURL(location.profileURL)
-    getDetails(id);}
-       
+    } else {
+      setname(location.name);
+      setprofileURL(location.profileURL);
+      getDetails(id);
+    }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id,location]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, location]);
 
   return (
-    <React.Fragment>
+    <div className="content">
       <LeftSidebar />
       <div className="rightMainArea">
         <MainHeader name={name} profileURL={profileURL} />
         <MainChatArea id={id} username={localStorage.getItem("USERname")} />
         <MainMessagebox id={id} />
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 

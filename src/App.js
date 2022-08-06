@@ -9,13 +9,13 @@ const App = () => {
   return (
     <BrowserRouter>
       <main>
-        <div className="content">
+       
           <Routes>
             <Route path="/" exact element={<Login />} />
             <Route path="/home" exact element={<MainAreaDefault />} />
             <Route path="/chat/:id" element={<RightMainArea />} />
           </Routes>
-        </div>
+      
       </main>
     </BrowserRouter>
   );

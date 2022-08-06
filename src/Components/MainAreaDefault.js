@@ -16,7 +16,8 @@ const MainAreaDefault = () => {
   }, []);
 
   return (
-    <React.Fragment>
+    <div className="content">
+
       <LeftSidebar />
 
       <div className="rightMainAreaDefault">
@@ -45,7 +46,7 @@ const MainAreaDefault = () => {
           <LockIcon sx={{ fontSize: 14 }} /> End-to-End Encrypted
         </p>
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 
