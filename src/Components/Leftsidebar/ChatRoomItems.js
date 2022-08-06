@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 const ChatRoomItems = ({id,name,profileURL}) => {
  
   return (
-    <Link  to={`/${id}`} state={{name: name, profileURL: profileURL}} className='chatroomitems__container'>
+    <Link  to={`/chat/${id}`} state={{name: name, profileURL: profileURL}} className='chatroomitems__container'>
       <Avatar src={profileURL}/>
       <div className='chatroomitem_detail'>
         <p className='chatroomitem_name'>{name}</p>
