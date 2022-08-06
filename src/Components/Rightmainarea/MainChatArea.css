@@ -1,0 +1,64 @@
+.mainChat__container{
+    flex: 0.91;
+    overflow: auto;
+    padding: 0 80px;
+}
+.mainChat__encrypted{
+    font-size: 12.5px;
+    color: gold;
+    text-align: center;
+    margin: 12px;
+}
+.mainChat__encrypted p{
+    background-color: #2a2b36;
+    padding: 8px 12px;
+    border-radius: 10px;
+    display: inline-block;
+
+}
+.mainChat_messageLeft{
+    text-align: left;
+    margin-bottom: 10px;
+    position: relative;
+    font-size: 14px;
+}
+.mainChat_messageLeft p{
+    background-color: #30323F;
+    padding: 6px 10px;
+    display: inline-block;
+    border-radius: 0 6px 6px 6px;
+}
+.mainChat_messageLeft::before{
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 6px solid #30323F;
+    border-left: 6px solid transparent;
+    position: absolute;
+    left: -6px;
+}
+.mainChat_messageRight{
+    text-align: right;
+    margin-bottom: 10px;
+    position: relative;
+    font-size: 14px;
+
+
+}
+.mainChat_messageRight p{
+    background-color: #CCFFCE;
+    padding: 6px 10px;
+    display: inline-block;
+    border-radius: 6px 0 6px 6px;
+    color: #2a2b36;
+}
+.mainChat_messageRight::after{
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 6px solid #CCFFCE;
+    border-right: 6px solid transparent;
+    position: absolute;
+    right: -6px;
+
+}

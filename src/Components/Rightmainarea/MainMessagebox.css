@@ -1,0 +1,27 @@
+.messageBox__container {
+  flex: 0.09;
+  background-color: #2a2b36;
+  border-radius: 0 0 10px 0;
+  display: flex;
+  column-gap: 5px;
+  align-items: center;
+  padding: 0 20px;
+}
+.messageBox__attachment{
+  transform: rotate(-40deg);
+}
+.messageBox__form{
+  flex-grow: 1;
+  
+
+}
+.messageBox__input{
+  outline: none;
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  font-size: 15px;
+  width: 100%;
+  background-color: #40414c;
+  border-radius: 6px;
+}

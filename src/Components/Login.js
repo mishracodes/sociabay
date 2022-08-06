@@ -1,28 +1,38 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Login.css'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import userContext from '../Context/userContext';
 
 const Login = () => {
+  const context=useContext(userContext)
+  const {setUSER}=context;
     const signIn=()=>{
+      
         const auth = getAuth();
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
         .then((result) => {
           // This gives you a Google Access Token. You can use it to access the Google API.
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          const token = credential.accessToken;
+          // const credential = GoogleAuthProvider.credentialFromResult(result);
+          // const token = credential.accessToken;
           // The signed-in user info.
           const user = result.user;
-          console.log(user);
+          setUSER({name:user.displayName, profile:user.photoURL})
+          localStorage.setItem('isLoggedIn',true)
+          localStorage.setItem('USER.name',user.displayName)
+          localStorage.setItem('USER.profile',user.photoURL)
           // ...
         }).catch((error) => {
           // Handle Errors here.
-          const errorCode = error.code;
+          // const errorCode = error.code;
           const errorMessage = error.message;
+          console.log(errorMessage);
+          localStorage.setItem('isLoggedIn',false)
+
           // The email of the user's account used.
-          const email = error.customData.email;
+          // const email = error.customData.email;
           // The AuthCredential type that was used.
-          const credential = GoogleAuthProvider.credentialFromError(error);
+          // const credential = GoogleAuthProvider.credentialFromError(error);
           // ...
         });
     }

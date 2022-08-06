@@ -1,0 +1,19 @@
+.main__header__container {
+  background-color: #2a2b36;
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  justify-content: space-between;
+  border-radius: 0 10px 0 0;
+}
+.main__header__name {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+.main__header__name__text {
+}
+.main__header__name__status {
+  font-size: 12px;
+  color: #b0b0b7;
+}

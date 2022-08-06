@@ -7,13 +7,13 @@ const MainAreaDefault = () => {
   return (
     <div className="rightMainAreaDefault">
       <img className="banner__img" src={banner} alt="banner"/>
-      <h1 className="intro__title">WhatsApp Web</h1>
+      <h1 className="intro__title">sociaBay Web</h1>
       <p className="intro__text">
           Now send and receive messages without keeping your phone online.
           <br />
-          Use WhatsApp on up to 4 linked devices and 1 phone at the same time.
+          Use sociaBay on up to 4 linked devices and 1 phone at the same time.
       </p>
-      <p className="intro__bottom__text"><LaptopMacIcon sx={{ fontSize: 14 }}/> Make calls from desktop with WhatsApp for Windows.<a href="https://www.whatsapp.com/download" target="_blank" rel="noreferrer">Get it here</a>.</p>
+      <p className="intro__bottom__text"><LaptopMacIcon sx={{ fontSize: 14 }}/> Make calls from desktop with sociaBay for Windows.<a href="https://www.whatsapp.com/download" className="itro__link" target="_blank" rel="noreferrer">Get it here</a>.</p>
 
       <p className="intro_bottom_enc"><LockIcon sx={{ fontSize: 14 }}/> End-to-End Encrypted</p>
     </div>

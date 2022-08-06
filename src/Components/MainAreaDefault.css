@@ -1,5 +1,5 @@
 .rightMainAreaDefault{
-    flex: 0.7;
+    flex: 0.75;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,6 +28,10 @@
     margin-top: 25px;
     color: #b0b0b7;
 
+}
+.itro__link{
+    text-decoration: none;
+    color: rgb(19, 166, 234);
 }
 .intro_bottom_enc{
     color: #b0b0b7;
