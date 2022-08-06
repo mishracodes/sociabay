@@ -18,7 +18,9 @@
     "stream": "^0.0.2",
     "svgo": "^2.8.0",
     "util": "^0.12.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "react-scripts": "^5.0.1"
+
   },
   "devDependencies": {
     "react-scripts": "^5.0.1"
