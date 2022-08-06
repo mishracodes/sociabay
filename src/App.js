@@ -1,9 +1,8 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MainAreaDefault from "./Components/MainAreaDefault";
-import RightMainArea from "./Components/RightMainArea";
 import Login from "./Components/Login";
+import Home from "./Home";
 
 const App = () => {
   return (
@@ -12,8 +11,7 @@ const App = () => {
        
           <Routes>
             <Route path="/" exact element={<Login />} />
-            <Route path="/home" exact element={<MainAreaDefault />} />
-            <Route path="/chat/:id" element={<RightMainArea />} />
+            <Route path="/home/*" exact element={<Home />} />
           </Routes>
       
       </main>

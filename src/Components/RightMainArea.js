@@ -6,7 +6,6 @@ import db from "../firebase";
 import MainHeader from "./Rightmainarea/MainHeader";
 import MainChatArea from "./Rightmainarea/MainChatArea";
 import MainMessagebox from "./Rightmainarea/MainMessagebox";
-import LeftSidebar from "./LeftSidebar";
 
 const RightMainArea = () => {
   const navigate = useNavigate();
@@ -43,14 +42,12 @@ const RightMainArea = () => {
   }, [id, location]);
 
   return (
-    <div className="content">
-      <LeftSidebar />
+   
       <div className="rightMainArea">
         <MainHeader name={name} profileURL={profileURL} />
         <MainChatArea id={id} username={localStorage.getItem("USERname")} />
         <MainMessagebox id={id} />
       </div>
-    </div>
   );
 };
 

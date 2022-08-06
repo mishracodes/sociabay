@@ -3,7 +3,6 @@ import "./MainAreaDefault.css";
 import banner from "../Assets/banner.png";
 import LockIcon from "@mui/icons-material/Lock";
 import LaptopMacIcon from "@mui/icons-material/LaptopMac";
-import LeftSidebar from "./LeftSidebar";
 import { useNavigate } from "react-router-dom";
 const MainAreaDefault = () => {
   const navigate = useNavigate();
@@ -16,9 +15,7 @@ const MainAreaDefault = () => {
   }, []);
 
   return (
-    <div className="content">
-
-      <LeftSidebar />
+   
 
       <div className="rightMainAreaDefault">
         <img className="banner__img" src={banner} alt="banner" />
@@ -46,7 +43,6 @@ const MainAreaDefault = () => {
           <LockIcon sx={{ fontSize: 14 }} /> End-to-End Encrypted
         </p>
       </div>
-    </div>
   );
 };
 
