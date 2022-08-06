@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./RightMainArea.css";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import db from "../firebase";
 import MainHeader from "./Rightmainarea/MainHeader";
@@ -9,9 +9,13 @@ import MainMessagebox from "./Rightmainarea/MainMessagebox";
 import LeftSidebar from "./LeftSidebar";
 
 const RightMainArea = () => {
-  const { id } = useParams();
-  const { name, profileURL } = useLocation().state;
+  const navigate = useNavigate();
 
+  const { id } = useParams();
+  const location = useLocation().state;
+  const [name, setname] = useState()
+  const [profileURL, setprofileURL] = useState()
+  
   const getDetails = async (id) => {
     if (id) {
       const docRef = doc(db, "rooms", id);
@@ -25,8 +29,20 @@ const RightMainArea = () => {
     }
   };
   useEffect(() => {
-    getDetails(id);
-  }, [id]);
+    if(!location){
+      navigate("/home");
+    }
+    else if (!localStorage.getItem("email")) {
+      navigate("/");
+    } 
+    else{
+      setname(location.name)
+      setprofileURL(location.profileURL)
+    getDetails(id);}
+       
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id,location]);
 
   return (
     <React.Fragment>
