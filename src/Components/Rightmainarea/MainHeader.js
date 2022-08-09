@@ -4,10 +4,10 @@ import "./MainHeader.css";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SearchIcon from "@mui/icons-material/Search";
 
-const MainHeader = ({ name, profileURL }) => {
+const MainHeader = ({ name, profileURL,settoggleDetails }) => {
   return (
-    <div className="main__header__container">
-      <div className="main__header__name">
+    <div className="main__header__container" onClick={settoggleDetails}>
+      <div className="main__header__name" >
         <Avatar src={profileURL} alt="header avatar" />
         <div>
           <p className="main__header__name__text">{name}</p>

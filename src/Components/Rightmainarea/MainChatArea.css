@@ -18,7 +18,7 @@
 }
 .mainChat_messageLeft{
     text-align: left;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     position: relative;
     font-size: 14px;
 }
@@ -27,6 +27,7 @@
     padding: 6px 10px;
     display: inline-block;
     border-radius: 0 6px 6px 6px;
+    max-width: 500px;
 }
 .mainChat_messageLeft::before{
     content: "";
@@ -39,7 +40,7 @@
 }
 .mainChat_messageRight{
     text-align: right;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     position: relative;
     font-size: 14px;
 
@@ -51,6 +52,8 @@
     display: inline-block;
     border-radius: 6px 0 6px 6px;
     color: #2a2b36;
+    max-width: 500px;
+
 }
 .mainChat_messageRight::after{
     content: "";
@@ -60,5 +63,16 @@
     border-right: 6px solid transparent;
     position: absolute;
     right: -6px;
+
+}
+.mainChat_messageRight sub{
+    margin: 3px 1px 1px 5px;
+    font-size: 11px;
+    color: #5a5b66;
+}
+.mainChat_messageLeft sub{
+    margin: 3px 1px 1px 5px;
+    font-size: 11px;
+    color: #b0b0b7;
 
 }

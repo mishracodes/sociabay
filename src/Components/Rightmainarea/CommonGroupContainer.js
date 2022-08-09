@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import './ChatRooms.css'
-import ChatRoomItems from './ChatRoomItems'
+import './CommonGroupContainer.css'
 import {collection, onSnapshot} from 'firebase/firestore'
 import db from '../../firebase'
-const ChatRooms = () => {
-  const [rooms, setrooms] = useState()
+import CommonGroupItems from './CommonGroupItems'
+const CommonGroupContainer = () => {
+    const [rooms, setrooms] = useState()
   
    useEffect(() => {
       const roomsCollectionRef = collection(db,"rooms");
@@ -20,15 +20,13 @@ const ChatRooms = () => {
         unsub()
       }
   }, [])
-    
   return (
-    
-    <div className='chatrooms__container'>
-      {rooms&& rooms.map((e)=>(
-        <ChatRoomItems key={e.id} id={e.id} name={e.data.name} profileURL={e.data.profileURL}/>
+    <div>
+      {rooms&& rooms.filter((e)=>(e.data.name==='EOD Run Team')).map((e)=>(
+        <CommonGroupItems key={e.id} id={e.id} name={e.data.name} profileURL={e.data.profileURL}/>
       ))}
     </div>
   )
 }
 
-export default ChatRooms
+export default CommonGroupContainer

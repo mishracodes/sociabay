@@ -4,14 +4,20 @@ import TagFacesIcon from "@mui/icons-material/TagFaces";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import MicIcon from "@mui/icons-material/Mic";
 import { IconButton } from "@mui/material";
+import { collection,addDoc } from "firebase/firestore";
+import db from "../../firebase";
 
-const MainMessagebox = () => {
+
+const MainMessagebox = ({id,username}) => {
   const [message, setmessage] = useState("");
   const messageChnageHandler = (e) => {
     e.preventDefault();
     setmessage(e.target.value);
   };
-  const sendMessage = (msg) => {};
+  const sendMessage = (msg) => {
+     addDoc(collection(db, "rooms", id, "message"),{name:username,read:false,recieved:false,text:msg,timestamp:new Date()});
+    
+  };
   const formSubmitHandler = (e) => {
     e.preventDefault();
     sendMessage(message);

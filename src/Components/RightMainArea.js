@@ -6,10 +6,11 @@ import db from "../firebase";
 import MainHeader from "./Rightmainarea/MainHeader";
 import MainChatArea from "./Rightmainarea/MainChatArea";
 import MainMessagebox from "./Rightmainarea/MainMessagebox";
+import PersonDetail from "./Rightmainarea/PersonDetail";
 
 const RightMainArea = () => {
   const navigate = useNavigate();
-
+  const [togglePersonDetail, settogglePersonDetail] = useState(false)
   const { id } = useParams();
   const location = useLocation().state;
   const [name, setname] = useState();
@@ -37,17 +38,28 @@ const RightMainArea = () => {
       setprofileURL(location.profileURL);
       getDetails(id);
     }
-
+return () => {
+  settogglePersonDetail(false)
+  }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, location]);
-
+  const settoggleDetails=()=>{
+    if(togglePersonDetail)
+    settogglePersonDetail(false)
+    else
+    settogglePersonDetail(true)
+  }
   return (
-   
-      <div className="rightMainArea">
-        <MainHeader name={name} profileURL={profileURL} />
+   <React.Fragment>
+      <div className={`rightMainArea ${togglePersonDetail?'rightMainAreaHalf':''}`}>
+        <MainHeader name={name} profileURL={profileURL} settoggleDetails={settoggleDetails}/>
         <MainChatArea id={id} username={localStorage.getItem("USERname")} />
-        <MainMessagebox id={id} />
+        <MainMessagebox id={id} username={localStorage.getItem("USERname")} />
       </div>
+      <div className={`personDetailContainer ${togglePersonDetail?'':'hidden'}`}>
+      <PersonDetail/>
+      </div>
+      </React.Fragment>
   );
 };
 

@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./MainChatArea.css";
 import LockIcon from "@mui/icons-material/Lock";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import db from "../../firebaseaa";
+import db from "../../firebase";
 const MainChatArea = ({ id, username }) => {
   const [messages, setmessages] = useState();
-
+  const bottomLine = useRef(null)
+  const scrollToBottom = () => {
+    bottomLine.current.scrollIntoView({ behavior: "smooth" })
+  }
   useEffect(() => {
     const roomsCollectionRef = collection(db, "rooms", id, "message");
     const unsub = onSnapshot(
@@ -17,12 +20,19 @@ const MainChatArea = ({ id, username }) => {
             data: doc.data(),
           }))
         );
+        bottomLine.current.scrollIntoView({behaviour:'smooth'})
       }
     );
     return () => {
       unsub();
     };
+    
   }, [id]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages])
+  
   return (
     <div className="mainChat__container">
       <div className="mainChat__encrypted">
@@ -37,16 +47,16 @@ const MainChatArea = ({ id, username }) => {
           <div
             key={e.data.timestamp}
             className={
-              username.split(" ")[0] === e.data.name
+              username.split(" ")[0] === e.data.name.split(" ")[0]
                 ? "mainChat_messageRight"
                 : "mainChat_messageLeft"
             }
           >
-            <p> {e.data.text}</p>
+            {/* new Date('1970-01-01T' + timeString + 'Z').toLocaleTimeString('en-US',{timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}) */}
+            <p> {e.data.text} <sub>{new Date(e.data.timestamp.toDate()).toLocaleString("en-IN", {timeZone: 'Asia/Kolkata', hour12:true,hour:'numeric',minute:'numeric'})} </sub></p>
           </div>
         ))}
-      {/* <div className='mainChat_messageLeft'><p> Hie Budz I love you 😘</p></div>
-      <div className='mainChat_messageRight'><p> I love you too budz 😘😘</p></div> */}
+      <div ref={bottomLine} />
     </div>
   );
 };
