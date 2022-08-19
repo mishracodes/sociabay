@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
-
+  const profile=localStorage.getItem("USERprofile")
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -28,7 +28,7 @@ const Header = () => {
 
   return (
     <div className="header__container">
-      <Avatar src={localStorage.getItem("USERprofile")} alt="header avatar" />
+      <Avatar src={profile} alt="header avatar" />
       <div className="headerIconButton">
         <IconButton>
           <DonutLargeIcon className="buttonColor" />

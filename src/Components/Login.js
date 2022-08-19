@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./Login.css";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { doc,setDoc } from "firebase/firestore";
+import { doc,setDoc, getDoc } from "firebase/firestore";
 import db from "../firebase";
 const Login = () => {
   const navigate = useNavigate();
@@ -26,11 +26,25 @@ const Login = () => {
         // The signed-in user info.
         const user = result.user;
 
-        localStorage.setItem("email", user.email);
-        localStorage.setItem("USERname", user.displayName);
-        localStorage.setItem("USERprofile", user.photoURL);
-        setDoc(doc(db, "users",user.email),{about:"Hey there! I am using sociaBay", email: user.email, lastseen:new Date(),name:user.displayName, online:true,phone:+919876543210, profile:user.photoURL,groups:["Murex Env Support", "EOD Run Team", "OCTOBER 8 BANGLORE", "CBA-IBB"]});
-        navigate("/home");
+       
+
+        getDoc(doc(db, "users", user.email)).then(docSnap => {
+          if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+            localStorage.setItem("email", user.email);
+            localStorage.setItem("USERname", user.displayName);
+            localStorage.setItem("USERprofile", user.photoURL);
+            navigate("/home");
+          } else {
+            console.log("No such user!");
+            setDoc(doc(db, "users",user.email),{email: user.email,name:user.displayName});
+            navigate("/signup");
+          }
+        })
+        
+       
+        
+        
       })
       
       .catch((error) => {
