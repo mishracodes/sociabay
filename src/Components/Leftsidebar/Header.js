@@ -8,7 +8,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = ({toggle}) => {
   const navigate = useNavigate();
   const profile=localStorage.getItem("USERprofile")
   const [anchorEl, setAnchorEl] = useState(null);
@@ -25,6 +25,7 @@ const Header = () => {
     localStorage.clear();
     navigate("/");
   };
+ 
 
   return (
     <div className="header__container">
@@ -34,7 +35,7 @@ const Header = () => {
           <DonutLargeIcon className="buttonColor" />
         </IconButton>
 
-        <IconButton>
+        <IconButton onClick={toggle}>
           <ChatIcon className="buttonColor" />
         </IconButton>
 

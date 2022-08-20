@@ -1,3 +1,4 @@
+import { getStorage } from "firebase/storage";
 const { initializeApp} = require('firebase/app');
 const { getFirestore } = require('firebase/firestore');
 const { getAuth,signInWithPopup,GoogleAuthProvider } = require('firebase/auth');
@@ -18,5 +19,6 @@ const db = getFirestore(app)
 const auth = getAuth();
 const popup = signInWithPopup()
 const provider = new GoogleAuthProvider();
-export {auth,popup, provider};
+const storage = getStorage(app);
+export {auth,popup, provider,storage};
 export default db;
