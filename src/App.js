@@ -4,18 +4,19 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Components/Login/Login";
 import Home from "./Home";
 import Signup from "./Components/Signup";
+import MainState from "./Context/MainState";
 
 const App = () => {
   return (
     <BrowserRouter>
       <main>
-       
+        <MainState>
           <Routes>
             <Route path="/" exact element={<Login />} />
             <Route path="/home/*" exact element={<Home />} />
             <Route path="/signup/*" exact element={<Signup />} />
           </Routes>
-      
+        </MainState>
       </main>
     </BrowserRouter>
   );

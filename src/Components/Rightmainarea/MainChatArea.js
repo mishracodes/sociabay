@@ -1,18 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./MainChatArea.css";
 import LockIcon from "@mui/icons-material/Lock";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import db from "../../firebase";
+import mainContext from "../../Context/mainContext";
 const MainChatArea = ({ id, username }) => {
   const [messages, setmessages] = useState();
+  const context = useContext(mainContext)
+  const {currentUser}=context;
   const bottomLine = useRef(null)
   const scrollToBottom = () => {
     bottomLine.current.scrollIntoView({ behavior: "smooth" })
   }
   useEffect(() => {
-    const roomsCollectionRef = collection(db, "rooms", id, "message");
+    const roomsCollectionRef = collection(db, "Chats", currentUser, "message");
     const unsub = onSnapshot(
-      query(roomsCollectionRef, orderBy("timestamp", "asc")),
+      query(roomsCollectionRef, orderBy("mTimestamp", "asc")),
       (response) => {
         setmessages(
           response.docs.map((doc) => ({
@@ -27,11 +30,11 @@ const MainChatArea = ({ id, username }) => {
       unsub();
     };
     
-  }, [id]);
+  }, [currentUser]);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages])
+  }, [messages,currentUser])
   
   return (
     <div className="mainChat__container">
@@ -45,15 +48,15 @@ const MainChatArea = ({ id, username }) => {
       {messages &&
         messages.map((e) => (
           <div
-            key={e.data.timestamp}
+            key={e.data.mTimestamp}
             className={
-              username.split(" ")[0] === e.data.name.split(" ")[0]
+              username === e.data.mName
                 ? "mainChat_messageRight"
                 : "mainChat_messageLeft"
             }
           >
             {/* new Date('1970-01-01T' + timeString + 'Z').toLocaleTimeString('en-US',{timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}) */}
-            <p> {e.data.text} <sub>{new Date(e.data.timestamp.toDate()).toLocaleString("en-IN", {timeZone: 'Asia/Kolkata', hour12:true,hour:'numeric',minute:'numeric'})} </sub></p>
+            <p> {e.data.mText} <sub>{new Date(e.data.mTimestamp.toDate()).toLocaleString("en-IN", {timeZone: 'Asia/Kolkata', hour12:true,hour:'numeric',minute:'numeric'})} </sub></p>
           </div>
         ))}
       <div ref={bottomLine} />

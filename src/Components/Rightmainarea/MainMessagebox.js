@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./MainMessagebox.css";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import AttachmentIcon from "@mui/icons-material/Attachment";
@@ -6,16 +6,20 @@ import MicIcon from "@mui/icons-material/Mic";
 import { IconButton } from "@mui/material";
 import { collection,addDoc } from "firebase/firestore";
 import db from "../../firebase";
+import mainContext from "../../Context/mainContext";
 
 
 const MainMessagebox = ({id,username}) => {
   const [message, setmessage] = useState("");
+  const context = useContext(mainContext)
+  const {currentUser}=context;
+
   const messageChnageHandler = (e) => {
     e.preventDefault();
     setmessage(e.target.value);
   };
   const sendMessage = (msg) => {
-     addDoc(collection(db, "rooms", id, "message"),{name:username,read:false,recieved:false,text:msg,timestamp:new Date()});
+     addDoc(collection(db, "Chats", currentUser, "message"),{mName:username,mRead:false,mRecieved:false,mText:msg,mTimestamp:new Date(),mMedia:""});
     
   };
   const formSubmitHandler = (e) => {
