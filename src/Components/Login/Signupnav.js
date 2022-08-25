@@ -48,6 +48,7 @@ const Signupnav = () => {
             localStorage.setItem("email", user.email);
             localStorage.setItem("USERname", user.name);
             localStorage.setItem("USERprofile", url);
+            localStorage.setItem("about", docSnap.data().about);
            
           });
         });

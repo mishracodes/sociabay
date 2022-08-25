@@ -7,7 +7,7 @@ import mainContext from "../../Context/mainContext";
 const MainChatArea = ({ id, username }) => {
   const [messages, setmessages] = useState();
   const context = useContext(mainContext)
-  const {currentUser}=context;
+  const {currentUser,emojiToggle}=context;
   const bottomLine = useRef(null)
   const scrollToBottom = () => {
     bottomLine.current.scrollIntoView({ behavior: "smooth" })
@@ -37,7 +37,7 @@ const MainChatArea = ({ id, username }) => {
   }, [messages,currentUser])
   
   return (
-    <div className="mainChat__container">
+    <div className={emojiToggle?'mainChat__containeremoji':'mainChat__container'}>
       <div className="mainChat__encrypted">
         <p>
           <LockIcon sx={{ fontSize: 11 }} /> Messages are end-to-end encrypted.

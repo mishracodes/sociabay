@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import "./MainMessagebox.css";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import AttachmentIcon from "@mui/icons-material/Attachment";
@@ -10,9 +10,8 @@ import mainContext from "../../Context/mainContext";
 
 
 const MainMessagebox = ({id,username}) => {
-  const [message, setmessage] = useState("");
   const context = useContext(mainContext)
-  const {currentUser}=context;
+  const {currentUser,toggleEmoji,message,setmessage}=context;
 
   const messageChnageHandler = (e) => {
     e.preventDefault();
@@ -29,7 +28,7 @@ const MainMessagebox = ({id,username}) => {
   };
   return (
     <div className="messageBox__container">
-      <IconButton>
+      <IconButton onClick={toggleEmoji}>
         <TagFacesIcon className="buttonColor" />
       </IconButton>
       <IconButton>

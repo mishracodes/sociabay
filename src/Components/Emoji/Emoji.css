@@ -1,0 +1,22 @@
+.emoji__container{
+  
+  overflow: auto;
+  padding: 5px 15px;
+  background-color: #2a2b36;
+  animation: emojiExpand;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+@keyframes emojiExpand {
+  0% {flex: 0;}
+  100% {flex: 0.4;}
+}
+.emoji__container p{
+  margin: 20px 0 10px 0;
+}
+.emoji__item{
+  font-size: 32px;
+  margin: 2px;
+  cursor: pointer;
+  display: inline-block;
+}

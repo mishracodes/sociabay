@@ -36,6 +36,8 @@ const Loginnav = (props) => {
                 localStorage.setItem("email", user.email);
                 localStorage.setItem("USERname", docSnap.data().name);
                 localStorage.setItem("USERprofile", docSnap.data().profile);
+                localStorage.setItem("about", docSnap.data().about);
+
                 navigate("/home");
               } else {
                 console.log("No such user!");
@@ -75,6 +77,8 @@ const Loginnav = (props) => {
                     localStorage.setItem("email", loginUser.email);
                     localStorage.setItem("USERname", docSnap.data().name);
                     localStorage.setItem("USERprofile", docSnap.data().profile);
+                    localStorage.setItem("about", docSnap.data().about);
+
                     navigate("/home");
                 }
                 else{

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Header.css";
 import DonutLargeIcon from "@mui/icons-material/DonutLarge";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -7,8 +7,11 @@ import { Avatar, IconButton } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+import mainContext from "../../Context/mainContext";
 
 const Header = ({toggle}) => {
+  const context = useContext(mainContext)
+  const {togglepersonalDetailsT}=context;
   const navigate = useNavigate();
   const profile=localStorage.getItem("USERprofile")
   const [anchorEl, setAnchorEl] = useState(null);
@@ -29,7 +32,7 @@ const Header = ({toggle}) => {
 
   return (
     <div className="header__container">
-      <Avatar src={profile} alt="header avatar" />
+      <Avatar sx={{cursor:'pointer'}} src={profile} alt="header avatar" onClick={togglepersonalDetailsT}/>
       <div className="headerIconButton">
         <IconButton>
           <DonutLargeIcon className="buttonColor" />

@@ -4,6 +4,7 @@ import LeftSidebar from './Components/LeftSidebar';
 import MainAreaDefault from './Components/MainAreaDefault';
 import NewChat from './Components/NewChat';
 import RightMainArea from './Components/RightMainArea';
+import PersonalDetails from './Components/PersonalDetails';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const Home = () => {
 
     <LeftSidebar toggle={toggle} newChat={newChat}/>
     <NewChat  toggle={toggle} newChat={newChat}/>
+    <PersonalDetails/>
          <Routes>
          <Route path="/" exact  element={<MainAreaDefault />} />
          <Route path="/chat/:id" exact element={<RightMainArea />} />

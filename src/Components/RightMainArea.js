@@ -7,6 +7,7 @@ import MainHeader from "./Rightmainarea/MainHeader";
 import MainChatArea from "./Rightmainarea/MainChatArea";
 import MainMessagebox from "./Rightmainarea/MainMessagebox";
 import PersonDetail from "./Rightmainarea/PersonDetail";
+import Emoji from "./Emoji/Emoji";
 
 const RightMainArea = () => {
   const navigate = useNavigate();
@@ -54,6 +55,7 @@ return () => {
       <div className={`rightMainArea ${togglePersonDetail?'rightMainAreaHalf':''}`}>
         <MainHeader name={name} profileURL={profileURL} settoggleDetails={settoggleDetails}/>
         <MainChatArea id={id} username={localStorage.getItem("USERname")} />
+        <Emoji/>
         <MainMessagebox id={id} username={localStorage.getItem("USERname")} />
       </div>
       <div className={`personDetailContainer ${togglePersonDetail?'':'hidden'}`}>
