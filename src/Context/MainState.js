@@ -28,9 +28,7 @@ const toggleEmoji=()=>{
 }
 
 const getPersonDetails=async (email)=>{
-  if (true) {
         const docRef = doc(db, "users", email);
-        console.log(currentUser);
          const docSnap = await  getDoc(docRef);
         if (docSnap.exists()) {
           //  setname(docSnap.data().name);
@@ -40,7 +38,6 @@ const getPersonDetails=async (email)=>{
           console.log("No such document!");
         }
       
-  }
 }
 
   return (

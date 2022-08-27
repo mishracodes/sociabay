@@ -32,7 +32,6 @@ const Loginnav = (props) => {
     
             getDoc(doc(db, "users", user.email)).then(docSnap => {
               if (docSnap.exists()) {
-                console.log("Document data:", docSnap.data());
                 localStorage.setItem("email", user.email);
                 localStorage.setItem("USERname", docSnap.data().name);
                 localStorage.setItem("USERprofile", docSnap.data().profile);
@@ -73,7 +72,6 @@ const Loginnav = (props) => {
         getDoc(doc(db, "users", loginUser.email)).then(docSnap => {
             if (docSnap.exists()) {
                 if(docSnap.data().password===loginUser.password){
-                    console.log("Document data:", docSnap.data());
                     localStorage.setItem("email", loginUser.email);
                     localStorage.setItem("USERname", docSnap.data().name);
                     localStorage.setItem("USERprofile", docSnap.data().profile);

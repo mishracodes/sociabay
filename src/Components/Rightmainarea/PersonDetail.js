@@ -13,7 +13,7 @@ const PersonDetail = ({email}) => {
   const { getPersonDetails,personDetails } = context;
   useEffect(() => {
     getPersonDetails(email)
-  }, [getPersonDetails,email])
+  }, [email])
   
   return (
     <div className="PersonDetailContainer">
