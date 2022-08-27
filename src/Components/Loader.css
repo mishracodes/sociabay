@@ -1,0 +1,82 @@
+.loader__container {
+  width: 30vw;
+  height: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+}
+.lc__animation{
+  height: 100px;
+}
+.lc__stage12, .lc__stage3, .lc__stage4{
+  height: 54px;
+  object-fit: contain;
+  position: absolute;
+
+}
+.lc__stage12{
+  left: 42%;
+  animation: stage1 5s;
+  animation-fill-mode: forwards;
+}
+.lc__stage3{
+  animation: stage3 5s;
+  animation-fill-mode: forwards;
+}
+.lc__stage4{
+  animation: stage4 5s;
+  animation-fill-mode: forwards;
+}
+.lc__progress__bar__container{
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+.lc__progress__bar{
+  height: 0.5vh;
+  margin-top: 10px;
+  background-color: rgb(16,220,106);
+  border-radius: 10px;
+  animation: loaderfill 5s;
+  animation-fill-mode: forwards;
+}
+.lc__text{
+  margin: 15px 0;
+}
+.lc__subtext{
+  color: gray;
+}
+
+@keyframes stage1 {
+  0%{left: 42%;}
+  20%{left:42%;}
+  60%{left:20%;}
+  75%{left:20%;visibility: hidden;}
+  100%{left:20%;visibility: hidden;}
+}
+
+@keyframes stage3 {
+  0%{visibility: hidden;}
+  40%{visibility: hidden;}
+  60%{left:34%;visibility:visible;}
+  75%{left:34%;visibility:hidden;}
+  100%{left:34%;visibility:hidden;}
+}
+
+@keyframes stage4 {
+  0%{visibility: hidden;}
+  75%{visibility: hidden;}
+  81%{left:40%;visibility:visible;}
+  100%{left:40%;visibility:visible;}
+}
+
+@keyframes loaderfill {
+  0%{width: 5vw;}
+  40%{width: 10vw;}
+  60%{width: 15vw;}
+  75%{width: 20vw;}
+  80%{width: 25vw;}
+  100%{width: 30vw;}
+}

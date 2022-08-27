@@ -59,7 +59,7 @@ return () => {
         <MainMessagebox id={id} username={localStorage.getItem("USERname")} />
       </div>
       <div className={`personDetailContainer ${togglePersonDetail?'':'hidden'}`}>
-      <PersonDetail/>
+      <PersonDetail email={id}/>
       </div>
       </React.Fragment>
   );

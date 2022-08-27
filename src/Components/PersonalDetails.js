@@ -3,11 +3,10 @@ import mainContext from "../Context/mainContext";
 import "./PersonalDetails.css";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { IconButton } from '@mui/material';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
+// import CameraAltIcon from '@mui/icons-material/CameraAlt';
 const PersonalDetails = () => {
   const context = useContext(mainContext);
   const { personalDetailsT,togglepersonalDetailsT } = context;
-
 
   return (
     <div className={`leftSidebar PersonalDetails__container ${personalDetailsT ? "" : "hidden"}`}>
