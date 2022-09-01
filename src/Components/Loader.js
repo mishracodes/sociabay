@@ -1,9 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Loader.css'
 import logo3 from "../Assets/logo3.png";
 import logo4 from "../Assets/logo4.png";
 import walogo from "../Assets/walogo.png";
+import { useNavigate } from 'react-router-dom';
+
 const Loader = () => {
+    const navigate = useNavigate();
+
+   useEffect(() => {
+     const timeout=setTimeout(()=>{
+        if (!localStorage.getItem("email")) {
+            navigate("/");
+          } else{
+        navigate("/home");
+          }
+
+     }, 1000);
+   
+     return () => {
+        clearTimeout(timeout);
+     }
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [])
+   
     return (
         <div className='loader__container'>
             <div class="lc__animation">

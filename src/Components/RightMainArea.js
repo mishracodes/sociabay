@@ -16,6 +16,7 @@ const RightMainArea = () => {
   const location = useLocation().state;
   const [name, setname] = useState();
   const [profileURL, setprofileURL] = useState();
+  const [userEmail, setuserEmail] = useState();
 
   // const getDetails = async (id) => {
   //   if (id) {
@@ -37,6 +38,7 @@ const RightMainArea = () => {
     } else {
       setname(location.name);
       setprofileURL(location.profile);
+      setuserEmail(location.userEmail);
     //  getDetails(id);
     }
 return () => {
@@ -53,7 +55,7 @@ return () => {
   return (
    <React.Fragment>
       <div className={`rightMainArea ${togglePersonDetail?'rightMainAreaHalf':''}`}>
-        <MainHeader name={name} profileURL={profileURL} settoggleDetails={settoggleDetails}/>
+        <MainHeader name={name} profileURL={profileURL} settoggleDetails={settoggleDetails} uEmail={userEmail}/>
         <MainChatArea id={id} username={localStorage.getItem("USERname")} />
         <Emoji/>
         <MainMessagebox id={id} username={localStorage.getItem("USERname")} />

@@ -4,6 +4,8 @@ import LockIcon from "@mui/icons-material/Lock";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import db from "../../firebase";
 import mainContext from "../../Context/mainContext";
+import parse from 'html-react-parser';
+
 const MainChatArea = ({ id, username }) => {
   const [messages, setmessages] = useState();
   const context = useContext(mainContext)
@@ -23,7 +25,6 @@ const MainChatArea = ({ id, username }) => {
             data: doc.data(),
           }))
         );
-        bottomLine.current.scrollIntoView({behaviour:'smooth'})
       }
     );
     return () => {
@@ -34,7 +35,7 @@ const MainChatArea = ({ id, username }) => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages,currentUser])
+  }, [messages])
   
   return (
     <div className={emojiToggle?'mainChat__containeremoji':'mainChat__container'}>
@@ -45,6 +46,7 @@ const MainChatArea = ({ id, username }) => {
           them. Click to learn more.
         </p>
       </div>
+      <div className="messageContainer_item"></div>
       {messages &&
         messages.map((e) => (
           <div
@@ -56,7 +58,7 @@ const MainChatArea = ({ id, username }) => {
             }
           >
             {/* new Date('1970-01-01T' + timeString + 'Z').toLocaleTimeString('en-US',{timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}) */}
-            <p> {e.data.mText} <sub>{new Date(e.data.mTimestamp.toDate()).toLocaleString("en-IN", {timeZone: 'Asia/Kolkata', hour12:true,hour:'numeric',minute:'numeric'})} </sub></p>
+            <div> {parse(e.data.mText)} <sub>{new Date(e.data.mTimestamp.toDate()).toLocaleString("en-IN", {timeZone: 'Asia/Kolkata', hour12:true,hour:'numeric',minute:'numeric'})} </sub></div>
           </div>
         ))}
       <div ref={bottomLine} />

@@ -29,12 +29,13 @@
 
 }
 .mainChat_messageLeft{
-    text-align: left;
+    /* text-align: left; */
+    /* background-color: red; */
     margin-bottom: 5px;
     position: relative;
     font-size: 14px;
 }
-.mainChat_messageLeft p{
+.mainChat_messageLeft div{
     background-color: #30323F;
     padding: 6px 10px;
     display: inline-block;
@@ -51,14 +52,17 @@
     left: -6px;
 }
 .mainChat_messageRight{
-    text-align: right;
+    /* background-color: yellow; */
+    display: flex;
+    justify-content: flex-end;
+    /* text-align: right; */
     margin-bottom: 5px;
     position: relative;
     font-size: 14px;
 
 
 }
-.mainChat_messageRight p{
+.mainChat_messageRight div{
     background-color: #CCFFCE;
     padding: 6px 10px;
     display: inline-block;

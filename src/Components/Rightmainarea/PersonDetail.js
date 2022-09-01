@@ -13,6 +13,7 @@ const PersonDetail = ({email}) => {
   const { getPersonDetails,personDetails } = context;
   useEffect(() => {
     getPersonDetails(email)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email])
   
   return (

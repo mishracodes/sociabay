@@ -12,16 +12,14 @@
 }
 .messageBox__form{
   flex-grow: 1;
-  
-
-}
-.messageBox__input{
-  outline: none;
-  border: none;
   color: white;
   padding: 10px 10px;
   font-size: 15px;
   width: 100%;
   background-color: #40414c;
   border-radius: 6px;
+  max-height: 130px;
+  overflow: auto;
+  margin: 5px 0;
+
 }

@@ -23,10 +23,10 @@ const ChatRoomItems = ({id,name,profileURL,Myemail}) => {
   else{
     setconcat(Myemail+id);
   }
+
 }, [id,Myemail])
- 
   return (
-    <Link  to={`/home/chat/${id}`} state={{name: name, profile: profileURL}} className='chatroomitems__container' onClick={handleClick}>
+    <Link  to={`/home/chat/${id}`} state={{name: name, profile: profileURL,userEmail:id}} className='chatroomitems__container' onClick={handleClick}>
       <Avatar src={profileURL}/>
       <div className='chatroomitem_detail'>
         <p className='chatroomitem_name'>{name}</p>

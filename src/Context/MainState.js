@@ -1,6 +1,6 @@
 import React,{ useState } from "react";
 import mainContext from "./mainContext.js";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../firebase";
 const MainState = (props) => {
 const [USER, setUSER] = useState(null);
@@ -9,6 +9,8 @@ const [emojiToggle, setemojiToggle] = useState(false)
 const [message, setmessage] = useState("");
 const [personalDetailsT, setpersonalDetailsT] = useState(false)
 const [personDetails, setpersonDetails] = useState({name:"",email:"",lastseen:"",about:"",phone:"",profile:""})
+const [lastseenStatus, setlastseenStatus] = useState('Click here to get more details')
+
 const togglepersonalDetailsT=()=>{
   if(personalDetailsT){
     setpersonalDetailsT(false)
@@ -40,8 +42,31 @@ const getPersonDetails=async (email)=>{
       
 }
 
+const setLastseen=(email)=>{
+  updateDoc(doc(db, "users",email),{lastseen:new Date()})
+}
+const getTimeDiff=(date)=>{
+  const t1 = date;
+  const t2 = new Date();
+  const dif = ( t2.getTime() - t1.getTime() ) / 1000;
+  if(dif<=10){
+    return "Online"
+  }
+  return t1.toLocaleString("en-IN", {timeZone: 'Asia/Kolkata', hour12:true,hour:'numeric',minute:'numeric',year: 'numeric',month: 'short',day: 'numeric'});
+}
+const getLastseen=(email)=>{
+  console.log(email);
+  getDoc(doc(db, 'users', email)).then(docSnap => {
+    setlastseenStatus(getTimeDiff(new Date(docSnap.data().lastseen.toDate())))
+  })
+  
+  
+
+  // console.log(new Date(lastseenStatus.toDate()).toLocaleString("en-IN", {timeZone: 'Asia/Kolkata', hour12:true,hour:'numeric',minute:'numeric'}));
+}
+
   return (
-    <mainContext.Provider  value={{ USER, setUSER,currentUser,setcurrentUser,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider  value={{ USER, setUSER,currentUser,setcurrentUser,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus}}>{props.children}</mainContext.Provider>
   )
 }
 
