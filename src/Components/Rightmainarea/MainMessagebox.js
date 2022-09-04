@@ -13,7 +13,7 @@ import Draft, { Editor, EditorState } from "draft-js";
 
 const MainMessagebox = ({id,username}) => {
   const context = useContext(mainContext)
-  const {currentUser,toggleEmoji,message,setmessage}=context;
+  const {currentUser,toggleEmoji,message,setmessage,lastseenStatus}=context;
   const [editorState, setEditorState] = React.useState(() =>
   EditorState.createEmpty()
 );
@@ -48,7 +48,8 @@ function handleKeyCommand(command) {
   //   setmessage(e.target.value);
   // };
   const sendMessage = (msg) => {
-     addDoc(collection(db, "Chats", currentUser, "message"),{mName:username,mRead:false,mRecieved:false,mText:msg,mTimestamp:new Date(),mMedia:""});
+    console.log(lastseenStatus);
+     addDoc(collection(db, "Chats", currentUser, "message"),{mName:username,mRead:false,mRecieved: lastseenStatus==='Online'?true:false,mText:msg,mTimestamp:new Date(),mMedia:""});
     
   };
   const formSubmitHandler = (e) => {
