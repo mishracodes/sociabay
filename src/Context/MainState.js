@@ -13,6 +13,15 @@ const [lastseenStatus, setlastseenStatus] = useState('Click here to get more det
 const [uidarr, setuidarr] = useState([]);
 const [currentHashId,setcurrentHashId] = useState(null)
 const [newChat, setnewChat] = useState(false)
+const [togglePersonDetail, settogglePersonDetail] = useState(false)
+
+const settoggleDetails=()=>{
+  if(togglePersonDetail)
+  settogglePersonDetail(false)
+  else
+  settogglePersonDetail(true)
+}
+
 const newChatToggle=()=>{
   if(newChat){
     setnewChat(false)
@@ -109,7 +118,7 @@ const markAsReceived = (myemail)=>{
 }
 
   return (
-    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,markAsReceived,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,markAsReceived,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat,settogglePersonDetail,togglePersonDetail,settoggleDetails}}>{props.children}</mainContext.Provider>
   )
 }
 
