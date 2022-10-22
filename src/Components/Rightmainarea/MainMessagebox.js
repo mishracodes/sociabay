@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./MainMessagebox.css";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import AttachmentIcon from "@mui/icons-material/Attachment";
@@ -19,9 +19,12 @@ const MainMessagebox = ({id,username}) => {
 );
 const onCHangeHandler=(state)=>{
   setEditorState(state)
-  setmessage(stateToHTML(editorState.getCurrentContent()))
-
 }
+useEffect(() => {
+  setmessage(stateToHTML(editorState.getCurrentContent()))
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [editorState])
+
 function keyBindingFn(e) {
   if (e.key === 'Enter') {
     return 'submitform' // name this whatever you want
