@@ -9,12 +9,12 @@ import mainContext from '../../Context/mainContext';
 const ChatRoomItems = ({id,name,profileURL,Myemail}) => {
   const [concat, setconcat] = useState("");
   const context = useContext(mainContext)
-  const {setcurrentUser}=context;
+  const {setcurrentHashId}=context;
   const hashCalc=()=>{
     return MD5(concat).toString()
   }  
   const handleClick=()=>{
-    setcurrentUser(hashCalc())
+    setcurrentHashId(hashCalc())
   }
  useEffect(() => {
   if(Myemail.charAt(0)>id.charAt(0)){

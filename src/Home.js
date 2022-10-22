@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import LeftSidebar from './Components/LeftSidebar';
 import MainAreaDefault from './Components/MainAreaDefault';
@@ -15,20 +15,12 @@ const Home = () => {
         } 
             // eslint-disable-next-line
       }, []);
-      const [newChat, setnewChat] = useState(false)
-      const toggle=()=>{
-        if(newChat){
-          setnewChat(false)
-        }
-        else{
-          setnewChat(true)
-        }
-      }
+    
   return (
     <div className="content">
 
-    <LeftSidebar toggle={toggle} newChat={newChat}/>
-    <NewChat  toggle={toggle} newChat={newChat}/>
+    <LeftSidebar/>
+    <NewChat/>
     <PersonalDetails/>
          <Routes>
          <Route path="/" exact  element={<MainAreaDefault />} />

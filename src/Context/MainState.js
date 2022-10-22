@@ -2,15 +2,36 @@ import React,{ useState } from "react";
 import mainContext from "./mainContext.js";
 import { collection, doc, getDoc, getDocs, onSnapshot, updateDoc } from "firebase/firestore";
 import db from "../firebase";
+import { MD5 } from "crypto-js";
 const MainState = (props) => {
 const [USER, setUSER] = useState(null);
-const [currentUser, setcurrentUser] = useState(null)
 const [emojiToggle, setemojiToggle] = useState(false)
 const [message, setmessage] = useState("");
 const [personalDetailsT, setpersonalDetailsT] = useState(false)
 const [personDetails, setpersonDetails] = useState({name:"",email:"",lastseen:"",about:"",phone:"",profile:""})
 const [lastseenStatus, setlastseenStatus] = useState('Click here to get more details')
 const [uidarr, setuidarr] = useState([]);
+const [currentHashId,setcurrentHashId] = useState(null)
+const [newChat, setnewChat] = useState(false)
+const newChatToggle=()=>{
+  if(newChat){
+    setnewChat(false)
+  }
+  else{
+    setnewChat(true)
+  }
+}
+
+
+const getHash=(email,myMail)=>{
+  if(myMail.localeCompare(email)<0){
+    setcurrentHashId(MD5(email+myMail).toString());
+  }
+  else{
+    setcurrentHashId(MD5(myMail+email).toString());
+  }
+}
+
 const togglepersonalDetailsT=()=>{
   if(personalDetailsT){
     setpersonalDetailsT(false)
@@ -55,7 +76,6 @@ const getTimeDiff=(date)=>{
   return t1.toLocaleString("en-IN", {timeZone: 'Asia/Kolkata', hour12:true,hour:'numeric',minute:'numeric',year: 'numeric',month: 'short',day: 'numeric'});
 }
 const getLastseen=(email)=>{
-  console.log(email);
   getDoc(doc(db, 'users', email)).then(docSnap => {
     setlastseenStatus(getTimeDiff(new Date(docSnap.data().lastseen.toDate())))
   })
@@ -76,6 +96,7 @@ const updatereadrecipt= async(item)=> {
 
 const markAsReceived = (myemail)=>{
   const chatRef = collection(db, "users", myemail, "contacts")
+  // eslint-disable-next-line no-unused-vars
   const observer = onSnapshot(chatRef, docSnapshot => {
     setuidarr(docSnapshot.docs.map((e)=>({uid:e.data().uid}))
             )
@@ -88,7 +109,7 @@ const markAsReceived = (myemail)=>{
 }
 
   return (
-    <mainContext.Provider  value={{ USER, setUSER,currentUser,setcurrentUser,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,markAsReceived,uidarr,updatereadrecipt}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,markAsReceived,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat}}>{props.children}</mainContext.Provider>
   )
 }
 

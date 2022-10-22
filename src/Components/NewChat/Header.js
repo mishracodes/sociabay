@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { IconButton } from '@mui/material';
-const Header = ({toggle}) => {
+import mainContext from '../../Context/mainContext';
+const Header = () => {
+  const context = useContext(mainContext)
+  const {newChatToggle}=context;
   return (
     <div className="header__container" style={{height:'80px'}}>
-        <IconButton onClick={toggle} sx={{color:'white'}}>
+        <IconButton onClick={newChatToggle} sx={{color:'white'}}>
         <ArrowBackIcon/>
         </IconButton>
         <p>New Chat</p>

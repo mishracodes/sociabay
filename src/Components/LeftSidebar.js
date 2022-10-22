@@ -4,9 +4,9 @@ import Header from './Leftsidebar/Header'
 import SearchRoom from './Leftsidebar/SearchRoom'
 import ChatRooms from './Leftsidebar/ChatRooms'
 import mainContext from '../Context/mainContext'
-const LeftSidebar = ({newChat,toggle}) => {
+const LeftSidebar = () => {
   const context = useContext(mainContext)
-  const {personalDetailsT,setLastseen}=context;
+  const {personalDetailsT,setLastseen,newChat}=context;
   useEffect(() => {
     const interval = setInterval(() => {
       setLastseen(localStorage.getItem('email'))
@@ -17,7 +17,7 @@ const LeftSidebar = ({newChat,toggle}) => {
    
   return (
     <div className={`leftSidebar ${newChat?'hidden':''} ${personalDetailsT?'hidden':''}`}>
-      <Header toggle={toggle}/>
+      <Header/>
       <SearchRoom/>
       <ChatRooms/>
     </div>

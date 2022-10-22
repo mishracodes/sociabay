@@ -9,9 +9,9 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import mainContext from "../../Context/mainContext";
 
-const Header = ({toggle}) => {
+const Header = () => {
   const context = useContext(mainContext)
-  const {togglepersonalDetailsT}=context;
+  const {togglepersonalDetailsT,newChatToggle}=context;
   const navigate = useNavigate();
   const profile=localStorage.getItem("USERprofile")
   const [anchorEl, setAnchorEl] = useState(null);
@@ -38,7 +38,7 @@ const Header = ({toggle}) => {
           <DonutLargeIcon className="buttonColor" />
         </IconButton>
 
-        <IconButton onClick={toggle}>
+        <IconButton onClick={newChatToggle}>
           <ChatIcon className="buttonColor" />
         </IconButton>
 

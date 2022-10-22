@@ -10,13 +10,13 @@ import DoneAll from "@mui/icons-material/DoneAll";
 const MainChatArea = ({ id, username }) => {
   const [messages, setmessages] = useState();
   const context = useContext(mainContext);
-  const { currentUser, emojiToggle } = context;
+  const { currentHashId, emojiToggle } = context;
   const bottomLine = useRef(null);
   const scrollToBottom = () => {
     bottomLine.current.scrollIntoView({ behavior: "smooth" });
   };
   useEffect(() => {
-    const roomsCollectionRef = collection(db, "Chats", currentUser, "message");
+    const roomsCollectionRef = collection(db, "Chats", currentHashId, "message");
     const unsub = onSnapshot(
       query(roomsCollectionRef, orderBy("mTimestamp", "asc")),
       (response) => {
@@ -31,7 +31,7 @@ const MainChatArea = ({ id, username }) => {
     return () => {
       unsub();
     };
-  }, [currentUser]);
+  }, [currentHashId]);
 
   useEffect(() => {
     scrollToBottom();
