@@ -1,19 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import "./MainAreaDefault.css";
 import banner from "../Assets/banner.png";
 import LockIcon from "@mui/icons-material/Lock";
 import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import { useNavigate } from "react-router-dom";
+import mainContext from "../Context/mainContext";
 const MainAreaDefault = () => {
   const navigate = useNavigate();
-
+  const context = useContext(mainContext)
+const {markAsReceived,uidarr,updatereadrecipt}=context
   useEffect(() => {
     if (!localStorage.getItem("email")) {
       navigate("/");
     } 
+    markAsReceived(localStorage.getItem("email"))
+
         // eslint-disable-next-line
   }, []);
-
+  useEffect(() => {
+    if(uidarr.length>0)
+    uidarr.forEach(updatereadrecipt);
+  }, [uidarr])
+  
   return (
    
 

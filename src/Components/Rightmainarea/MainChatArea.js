@@ -66,7 +66,7 @@ const MainChatArea = ({ id, username }) => {
             <div>
               {" "}
               {parse(e.data.mText)}
-              <sub style={{ display: "flex", alignItems: "center" }}>
+              <sub style={{ display: "flex", alignItems: "center", justifyContent:"end" }}>
                 {new Date(e.data.mTimestamp.toDate()).toLocaleString("en-IN", {
                   timeZone: "Asia/Kolkata",
                   hour12: true,

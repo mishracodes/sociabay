@@ -1,6 +1,6 @@
 import React,{ useState } from "react";
 import mainContext from "./mainContext.js";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, onSnapshot, updateDoc } from "firebase/firestore";
 import db from "../firebase";
 const MainState = (props) => {
 const [USER, setUSER] = useState(null);
@@ -10,7 +10,7 @@ const [message, setmessage] = useState("");
 const [personalDetailsT, setpersonalDetailsT] = useState(false)
 const [personDetails, setpersonDetails] = useState({name:"",email:"",lastseen:"",about:"",phone:"",profile:""})
 const [lastseenStatus, setlastseenStatus] = useState('Click here to get more details')
-
+const [uidarr, setuidarr] = useState([]);
 const togglepersonalDetailsT=()=>{
   if(personalDetailsT){
     setpersonalDetailsT(false)
@@ -64,9 +64,31 @@ const getLastseen=(email)=>{
 
   // console.log(new Date(lastseenStatus.toDate()).toLocaleString("en-IN", {timeZone: 'Asia/Kolkata', hour12:true,hour:'numeric',minute:'numeric'}));
 }
+const updatereadrecipt= async(item)=> {
+  const chatRef = collection(db, "Chats", item.uid, "messages")
+  const observer = await getDocs(chatRef)
+  observer.forEach((docData) => {
+    // doc.data() is never undefined for query doc snapshots
+    updateDoc(doc(db, "Chats", item.uid, "messages",docData.id),{recieved:true})
+  })
+
+}
+
+const markAsReceived = (myemail)=>{
+  const chatRef = collection(db, "users", myemail, "contacts")
+  const observer = onSnapshot(chatRef, docSnapshot => {
+    setuidarr(docSnapshot.docs.map((e)=>({uid:e.data().uid}))
+            )
+    
+  
+    // ...
+  }, err => {
+    console.log(`Encountered error: ${err}`);
+  })
+}
 
   return (
-    <mainContext.Provider  value={{ USER, setUSER,currentUser,setcurrentUser,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider  value={{ USER, setUSER,currentUser,setcurrentUser,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,markAsReceived,uidarr,updatereadrecipt}}>{props.children}</mainContext.Provider>
   )
 }
 

@@ -26,16 +26,16 @@ const Loader = () => {
    
     return (
         <div className='loader__container'>
-            <div class="lc__animation">
-                <img class="lc__stage12" src={walogo} alt="" />
-                <img class="lc__stage3" src={logo3} alt="" />
-                <img class="lc__stage4" src={logo4} alt="" />
+            <div className="lc__animation">
+                <img className="lc__stage12" src={walogo} alt="" />
+                <img className="lc__stage3" src={logo3} alt="" />
+                <img className="lc__stage4" src={logo4} alt="" />
             </div>
-            <div class="lc__progress__bar__container">
-                <div class="lc__progress__bar"></div>
+            <div className="lc__progress__bar__container">
+                <div className="lc__progress__bar"></div>
             </div>
-            <div class="lc__text">sociaBay</div>
-            <div class="lc__subtext">End-to-end encrypted</div>
+            <div className="lc__text">sociaBay</div>
+            <div className="lc__subtext">End-to-end encrypted</div>
         </div>
     )
 }

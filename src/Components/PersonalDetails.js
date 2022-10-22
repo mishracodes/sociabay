@@ -19,7 +19,7 @@ const PersonalDetails = () => {
     <div className="PersonalDetails__Subcontainer">
       <div className="PDprofilePicSection">
         <img
-          src="https://pps.whatsapp.net/v/t61.24694-24/231456639_1349162672220228_2729460684605501055_n.jpg?ccb=11-4&oh=01_AVyYj4xOjf-X5xN6BLIuyxYq9gLfVAal8I9kT9M49mJQXg&oe=63169E2A"
+          src="https://firebasestorage.googleapis.com/v0/b/sociabaychat.appspot.com/o/images%2FIMG-20200720-WA0002.jpg7a2487aa-8212-4ec0-a02c-721b0ce35ed3?alt=media&token=7398ee14-b6b3-4929-a7d0-c583e85b89bdA"
           alt="profile pic"
         />
         <div className="avatar__hover">
