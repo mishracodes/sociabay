@@ -8,12 +8,12 @@ import mainContext from "../Context/mainContext";
 const MainAreaDefault = () => {
   const navigate = useNavigate();
   const context = useContext(mainContext)
-const {markAsReceived,uidarr,updatereadrecipt}=context
+const {getuidarr,uidarr,updatereadrecipt}=context
   useEffect(() => {
     if (!localStorage.getItem("email")) {
       navigate("/");
     } 
-    markAsReceived(localStorage.getItem("email"))
+    getuidarr(localStorage.getItem("email"))
 
         // eslint-disable-next-line
   }, []);

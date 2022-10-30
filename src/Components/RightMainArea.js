@@ -32,6 +32,8 @@ const RightMainArea = () => {
   //     }
   //   }
   // };
+  
+  
   useEffect(() => {
     if (!location) {
       navigate("/home");

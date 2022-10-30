@@ -34,10 +34,10 @@ const newChatToggle=()=>{
 
 const getHash=(email,myMail)=>{
   if(myMail.localeCompare(email)<0){
-    setcurrentHashId(MD5(email+myMail).toString());
+    setcurrentHashId(MD5(myMail+email).toString());
   }
   else{
-    setcurrentHashId(MD5(myMail+email).toString());
+    setcurrentHashId(MD5(email+myMail).toString());
   }
 }
 
@@ -98,12 +98,15 @@ const updatereadrecipt= async(item)=> {
   const observer = await getDocs(chatRef)
   observer.forEach((docData) => {
     // doc.data() is never undefined for query doc snapshots
+    console.log(item);
+    if(item.name!==localStorage.getItem("USERname"))
     updateDoc(doc(db, "Chats", item.uid, "messages",docData.id),{recieved:true})
   })
 
 }
 
-const markAsReceived = (myemail)=>{
+const getuidarr = (myemail)=>{
+  if(myemail){
   const chatRef = collection(db, "users", myemail, "contacts")
   // eslint-disable-next-line no-unused-vars
   const observer = onSnapshot(chatRef, docSnapshot => {
@@ -116,9 +119,10 @@ const markAsReceived = (myemail)=>{
     console.log(`Encountered error: ${err}`);
   })
 }
+}
 
   return (
-    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,markAsReceived,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat,settogglePersonDetail,togglePersonDetail,settoggleDetails}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,getuidarr,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat,settogglePersonDetail,togglePersonDetail,settoggleDetails}}>{props.children}</mainContext.Provider>
   )
 }
 

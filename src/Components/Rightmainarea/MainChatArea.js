@@ -16,6 +16,7 @@ const MainChatArea = ({ id, username }) => {
     bottomLine.current.scrollIntoView({ behavior: "smooth" });
   };
   useEffect(() => {
+  
     const roomsCollectionRef = collection(db, "Chats", currentHashId, "message");
     const unsub = onSnapshot(
       query(roomsCollectionRef, orderBy("mTimestamp", "asc")),
