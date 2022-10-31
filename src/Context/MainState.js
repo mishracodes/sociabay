@@ -94,24 +94,22 @@ const getLastseen=(email)=>{
   // console.log(new Date(lastseenStatus.toDate()).toLocaleString("en-IN", {timeZone: 'Asia/Kolkata', hour12:true,hour:'numeric',minute:'numeric'}));
 }
 const updatereadrecipt= async(item)=> {
-  const chatRef = collection(db, "Chats", item.uid, "messages")
+  const chatRef = collection(db, "Chats", item.uid, "message")
   const observer = await getDocs(chatRef)
   observer.forEach((docData) => {
     // doc.data() is never undefined for query doc snapshots
-    console.log(item);
-    if(item.name!==localStorage.getItem("USERname"))
-    updateDoc(doc(db, "Chats", item.uid, "messages",docData.id),{recieved:true})
+    updateDoc(doc(db, "Chats", item.uid, "message",docData.id),{mRecieved:true})
   })
 
 }
+
 
 const getuidarr = (myemail)=>{
   if(myemail){
   const chatRef = collection(db, "users", myemail, "contacts")
   // eslint-disable-next-line no-unused-vars
   const observer = onSnapshot(chatRef, docSnapshot => {
-    setuidarr(docSnapshot.docs.map((e)=>({uid:e.data().uid}))
-            )
+    setuidarr(docSnapshot.docs.map((e)=>({uid:e.data().uid})))
     
   
     // ...
@@ -121,8 +119,20 @@ const getuidarr = (myemail)=>{
 }
 }
 
+const markAsRead= async (hashId, name)=>{
+     
+  const chatRef = collection(db, "Chats", hashId, "message")
+  const observer = await getDocs(chatRef)
+  observer.forEach((docData) => {
+    // doc.data() is never undefined for query doc snapshots
+    if(name===docData.data().mName&&docData.data().mName!==localStorage.getItem("USERname"))
+    updateDoc(doc(db, "Chats", hashId, "message",docData.id),{mRead:true})
+  })
+
+}
+
   return (
-    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,getuidarr,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat,settogglePersonDetail,togglePersonDetail,settoggleDetails}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,getuidarr,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat,settogglePersonDetail,togglePersonDetail,settoggleDetails,markAsRead}}>{props.children}</mainContext.Provider>
   )
 }
 

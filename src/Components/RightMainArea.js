@@ -55,7 +55,7 @@ return () => {
    <React.Fragment>
       <div className={`rightMainArea ${togglePersonDetail?'rightMainAreaHalf':''}`}>
         <MainHeader name={name} profileURL={profileURL} settoggleDetails={settoggleDetails} uEmail={userEmail}/>
-        <MainChatArea id={id} username={localStorage.getItem("USERname")} />
+        <MainChatArea id={id} username={localStorage.getItem("USERname")} name={location.name} />
         <Emoji/>
         <MainMessagebox id={id} username={localStorage.getItem("USERname")} />
       </div>

@@ -7,10 +7,10 @@ import mainContext from "../../Context/mainContext";
 import parse from "html-react-parser";
 import Done from "@mui/icons-material/Done";
 import DoneAll from "@mui/icons-material/DoneAll";
-const MainChatArea = ({ id, username }) => {
+const MainChatArea = ({ id, username,name }) => {
   const [messages, setmessages] = useState();
   const context = useContext(mainContext);
-  const { currentHashId, emojiToggle } = context;
+  const { currentHashId, emojiToggle, markAsRead } = context;
   const bottomLine = useRef(null);
   const scrollToBottom = () => {
     bottomLine.current.scrollIntoView({ behavior: "smooth" });
@@ -21,6 +21,7 @@ const MainChatArea = ({ id, username }) => {
     const unsub = onSnapshot(
       query(roomsCollectionRef, orderBy("mTimestamp", "asc")),
       (response) => {
+        markAsRead(currentHashId,name)
         setmessages(
           response.docs.map((doc) => ({
             id: doc.id,

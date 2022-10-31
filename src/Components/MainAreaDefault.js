@@ -10,10 +10,11 @@ const MainAreaDefault = () => {
   const context = useContext(mainContext)
 const {getuidarr,uidarr,updatereadrecipt}=context
   useEffect(() => {
+    getuidarr(localStorage.getItem("email"))
     if (!localStorage.getItem("email")) {
       navigate("/");
     } 
-    getuidarr(localStorage.getItem("email"))
+   
 
         // eslint-disable-next-line
   }, []);

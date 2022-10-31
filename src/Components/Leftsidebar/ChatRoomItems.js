@@ -13,18 +13,18 @@ const ChatRoomItems = ({id,name,profileURL,Myemail}) => {
   const [lastmsg, setlastmsg] = useState("")
   const [lastMsgTime, setlastMsgTime] = useState("")
   const context = useContext(mainContext)
-  const {setcurrentHashId}=context;
+  const {setcurrentHashId,markAsRead}=context;
   let hash =""
 
   const handleClick=(id,Myemail)=>{
     if(Myemail.localeCompare(id)<0){
       hash = MD5(Myemail+id).toString()
-      // markAsRead(hash, name)
+      markAsRead(hash, name)
       setcurrentHashId(MD5(Myemail+id).toString());      
       }
     else{
       hash = MD5(id+Myemail).toString()
-      // markAsRead(hash, name)
+      markAsRead(hash, name)
       setcurrentHashId(MD5(id+Myemail).toString());
      }
   }  
@@ -34,7 +34,6 @@ const ChatRoomItems = ({id,name,profileURL,Myemail}) => {
   handleClick(id, Myemail)
   const chatRef = collection(db, "Chats", hash, "message")
         const observer = onSnapshot(query(chatRef, orderBy("mTimestamp", "asc")), docSnapshot => {
-            // console.log("con:",hash,docSnapshot);
             const docLength=docSnapshot.docs.length
             if(docLength>0){
               const docData = docSnapshot.docs[docLength-1].data()
@@ -63,7 +62,7 @@ const ChatRoomItems = ({id,name,profileURL,Myemail}) => {
       <Avatar src={profileURL}/>
       <div className='chatroomitem_detail'>
         <p className='chatroomitem_name'>{name}</p>
-        <p className='chatroomitem_lastMessage'><DoneAllIcon sx={{ fontSize: 16 }}/> {parse(lastmsg)}</p>
+        <div className='chatroomitem_lastMessage'><DoneAllIcon sx={{ fontSize: 16 }}/> {((lastmsg)).length<50?parse(lastmsg):(parse(lastmsg.slice(0,25)+'...'))}</div>
       </div> 
       <div>
         <p className='chatroomitem_timestamp'>{lastMsgTime}</p>
