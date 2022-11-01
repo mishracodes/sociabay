@@ -3,17 +3,19 @@ import "./MainMessagebox.css";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import MicIcon from "@mui/icons-material/Mic";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import { collection,addDoc } from "firebase/firestore";
-import db from "../../firebase";
+import db, {storage}  from "../../firebase";
 import mainContext from "../../Context/mainContext";
 import {stateToHTML} from 'draft-js-export-html';
 import Draft, { Editor, EditorState } from "draft-js";
-
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
+import SendIcon from '@mui/icons-material/Send';
 
 const MainMessagebox = ({id,username}) => {
   const context = useContext(mainContext)
-  const {currentHashId,toggleEmoji,message,setmessage,lastseenStatus}=context;
+  const {currentHashId,toggleEmoji,message,setmessage,lastseenStatus,attachment, sendIconChange, setSendIconChange,attachfileUpload, attachToggle}=context;
   const [editorState, setEditorState] = React.useState(() =>
   EditorState.createEmpty()
 );
@@ -22,6 +24,18 @@ const onCHangeHandler=(state)=>{
 }
 useEffect(() => {
   setmessage(stateToHTML(editorState.getCurrentContent()))
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [editorState])
+
+useEffect(() => {
+
+  if(stateToHTML(editorState.getCurrentContent())!=='<p><br></p>'){
+    setSendIconChange(true)
+  }
+  else{
+    setSendIconChange(false)
+  }
+
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [editorState])
 
@@ -51,21 +65,39 @@ function handleKeyCommand(command) {
   //   setmessage(e.target.value);
   // };
   const sendMessage = (msg) => {
-     addDoc(collection(db, "Chats", currentHashId, "message"),{mName:username,mRead:false,mRecieved: lastseenStatus==='Online'?true:false,mText:msg,mTimestamp:new Date(),mMedia:""});
-    
+    const msgRef = collection(db, "Chats", currentHashId, "message");
+    if (attachfileUpload == null){
+      addDoc(msgRef, { mName:username,mRead:false,mRecieved: lastseenStatus==='Online'?true:false,mText:msg,mTimestamp:new Date(),mMedia: "" });
+    }
+    else{
+    const attachRef = ref(storage, `attachment/${currentHashId}/${attachfileUpload.name + v4()}`);
+    uploadBytes(attachRef, attachfileUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        addDoc(msgRef, { mName:username,mRead:false,mRecieved: lastseenStatus==='Online'?true:false,mText:msg,mTimestamp:new Date(),mMedia: url });
+      });
+    })
+    attachToggle() 
+  }
+  
   };
   const formSubmitHandler = (e) => {
     sendMessage(message);
-    setmessage("");
+    setEditorState(() => EditorState.createEmpty())
   };
   return (
     <div className="messageBox__container">
       <IconButton onClick={toggleEmoji}>
         <TagFacesIcon className="buttonColor" />
       </IconButton>
-      <IconButton>
+      <label htmlFor="attachInput">
+        <input style={{display: "none"}} onChange={attachment} type="file" id='attachInput'/> 
+      <Tooltip title='Attach'>
+        <IconButton component='span'>
         <AttachmentIcon className="messageBox__attachment buttonColor" />
-      </IconButton>
+        </IconButton>
+      </Tooltip>
+      </label>
+      
       <form className="messageBox__form" onSubmit={formSubmitHandler}>
         <Editor
           // type="text"
@@ -79,9 +111,7 @@ function handleKeyCommand(command) {
           placeholder="Type a message..."
         />
       </form>
-      <IconButton>
-        <MicIcon className="buttonColor" />
-      </IconButton>
+      {sendIconChange?<IconButton onClick={formSubmitHandler}><SendIcon sx={{ color: "rgb(117,132,142)" }}/></IconButton>:<IconButton ><MicIcon sx={{ color: "rgb(117,132,142)" }}/></IconButton>}
     </div>
   );
 };

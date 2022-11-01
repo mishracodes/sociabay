@@ -9,6 +9,7 @@ import MainMessagebox from "./Rightmainarea/MainMessagebox";
 import PersonDetail from "./Rightmainarea/PersonDetail";
 import Emoji from "./Emoji/Emoji";
 import mainContext from "../Context/mainContext";
+import AttachmentFile from "./Rightmainarea/AttachmentFile";
 
 const RightMainArea = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const RightMainArea = () => {
   const [profileURL, setprofileURL] = useState();
   const [userEmail, setuserEmail] = useState();
   const context = useContext(mainContext)
-  const {settogglePersonDetail,togglePersonDetail,settoggleDetails}=context;
+  const {settogglePersonDetail,togglePersonDetail,settoggleDetails,isFileAttached}=context;
 
   // const getDetails = async (id) => {
   //   if (id) {
@@ -45,17 +46,19 @@ const RightMainArea = () => {
       setuserEmail(location.userEmail);
     //  getDetails(id);
     }
+    console.log(isFileAttached);
 return () => {
   settogglePersonDetail(false)
   }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, location]);
+  }, [id, location, isFileAttached]);
  
   return (
    <React.Fragment>
       <div className={`rightMainArea ${togglePersonDetail?'rightMainAreaHalf':''}`}>
         <MainHeader name={name} profileURL={profileURL} settoggleDetails={settoggleDetails} uEmail={userEmail}/>
-        <MainChatArea id={id} username={localStorage.getItem("USERname")} name={location.name} />
+        {!isFileAttached &&<MainChatArea id={id} username={localStorage.getItem("USERname")} name={location.name} />}
+        {isFileAttached && <AttachmentFile/>}
         <Emoji/>
         <MainMessagebox id={id} username={localStorage.getItem("USERname")} />
       </div>

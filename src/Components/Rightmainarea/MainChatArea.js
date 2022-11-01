@@ -33,6 +33,7 @@ const MainChatArea = ({ id, username,name }) => {
     return () => {
       unsub();
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentHashId]);
 
   useEffect(() => {
@@ -66,7 +67,8 @@ const MainChatArea = ({ id, username,name }) => {
           >
             {/* new Date('1970-01-01T' + timeString + 'Z').toLocaleTimeString('en-US',{timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}) */}
             <div>
-              {" "}
+            {/* {e.data.media && <img alt="" width="300px" src={e.data.media} onClick={()=>{mediaToggle(e.data.media)}}/>} */}
+            {e.data.mMedia && <img alt="" width="300px" src={e.data.mMedia}/>}
               {parse(e.data.mText)}
               <sub style={{ display: "flex", alignItems: "center", justifyContent:"end" }}>
                 {new Date(e.data.mTimestamp.toDate()).toLocaleString("en-IN", {

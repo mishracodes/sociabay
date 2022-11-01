@@ -14,6 +14,12 @@ const [uidarr, setuidarr] = useState([]);
 const [currentHashId,setcurrentHashId] = useState(null)
 const [newChat, setnewChat] = useState(false)
 const [togglePersonDetail, settogglePersonDetail] = useState(false)
+const [attachfilesrc, setattachfilesrc] = useState("")
+const [attachfileUpload, setattachfileUpload] = useState(null)
+const [isFileAttached, setIsFileAttached] = useState(false)
+const [sendIconChange, setSendIconChange] = useState(false)
+const [mediaModal, setMediaModal] = useState(false)
+const [mediaModalUrl, setMediaModalUrl] = useState("")
 
 const settoggleDetails=()=>{
   if(togglePersonDetail)
@@ -130,9 +136,38 @@ const markAsRead= async (hashId, name)=>{
   })
 
 }
+const attachToggle = () => {
+  if (isFileAttached) {
+    setIsFileAttached(false)
+    setattachfilesrc("")
+  }
+  else {
+    setIsFileAttached(true)
+  }
+}
+const mediaToggle = (media) => {
+  if (mediaModal) {
+    setMediaModal(false)
+
+  }
+  else {
+    setMediaModalUrl(media)
+    setMediaModal(true)
+  }
+
+}
+
+const attachment = (event) => {
+  setattachfilesrc(URL.createObjectURL(event.target.files[0]))
+  setattachfileUpload(event.target.files[0])
+
+  attachToggle()
+  setSendIconChange(true)
+  event.target.value = ''
+}
 
   return (
-    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,getuidarr,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat,settogglePersonDetail,togglePersonDetail,settoggleDetails,markAsRead}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,getuidarr,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat,settogglePersonDetail,togglePersonDetail,settoggleDetails,markAsRead,attachment,attachfileUpload,attachfilesrc,sendIconChange,setSendIconChange,isFileAttached,attachToggle,mediaToggle, mediaModalUrl, mediaModal}}>{props.children}</mainContext.Provider>
   )
 }
 
