@@ -10,7 +10,7 @@ import DoneAll from "@mui/icons-material/DoneAll";
 const MainChatArea = ({ id, username,name }) => {
   const [messages, setmessages] = useState();
   const context = useContext(mainContext);
-  const { currentHashId, emojiToggle, markAsRead } = context;
+  const { currentHashId, emojiToggle, markAsRead,mediaToggle } = context;
   const bottomLine = useRef(null);
   const scrollToBottom = () => {
     bottomLine.current.scrollIntoView({ behavior: "smooth" });
@@ -67,8 +67,7 @@ const MainChatArea = ({ id, username,name }) => {
           >
             {/* new Date('1970-01-01T' + timeString + 'Z').toLocaleTimeString('en-US',{timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}) */}
             <div>
-            {/* {e.data.media && <img alt="" width="300px" src={e.data.media} onClick={()=>{mediaToggle(e.data.media)}}/>} */}
-            {e.data.mMedia && <img alt="" width="300px" src={e.data.mMedia}/>}
+            {e.data.mMedia && <img alt="" width="300px" src={e.data.mMedia} onClick={()=>{mediaToggle(e.data.mMedia)}}/>}
               {parse(e.data.mText)}
               <sub style={{ display: "flex", alignItems: "center", justifyContent:"end" }}>
                 {new Date(e.data.mTimestamp.toDate()).toLocaleString("en-IN", {
