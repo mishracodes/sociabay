@@ -21,6 +21,7 @@ const {getuidarr,uidarr,updatereadrecipt}=context
   useEffect(() => {
     if(uidarr.length>0)
     uidarr.forEach(updatereadrecipt);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uidarr])
   
   return (

@@ -34,7 +34,7 @@ const MainChatArea = ({ id, username, name }) => {
     const deleteMsgRef = doc(db, "Chats", currentHashId, "message",currentMsgId);
 
     await updateDoc(deleteMsgRef, {
-      mText: "<p><em>This message was deleted</em></p>",
+      mText: "<p><em style='color:#b0b0b7'>This message was deleted</em></p>",
       mMedia:""
 
     });
