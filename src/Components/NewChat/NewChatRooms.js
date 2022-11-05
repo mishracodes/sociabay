@@ -26,7 +26,7 @@ const NewChatRooms = () => {
   return (
     <div className='chatrooms__container'>
       {rooms&& rooms.filter((e)=>e.email!==Myemail).map((e)=>(
-        <NewChatRoomItems key={e.id} id={e.id} name={e.data.name} email={e.data.email} profile={e.data.profile} Myemail={Myemail}/>
+        <NewChatRoomItems key={e.id} id={e.id} name={e.data.name} email={e.data.email} profile={e.data.profile} Myemail={Myemail} bio={e.data.about}/>
       ))}
     </div>
   )

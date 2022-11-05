@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import { doc, setDoc } from 'firebase/firestore';
 import db from "../../firebase";
 import mainContext from '../../Context/mainContext';
-const NewChatRoomItems = ({id,name,profile,email,Myemail}) => {
+const NewChatRoomItems = ({id,name,profile,email,Myemail,bio}) => {
   const context = useContext(mainContext)
   const {getHash,currentHashId,newChatToggle}=context;
   
@@ -21,6 +21,7 @@ const NewChatRoomItems = ({id,name,profile,email,Myemail}) => {
       <Avatar src={profile}/>
       <div className='chatroomitem_detail'>
         <p className='chatroomitem_name'>{name}</p>
+        <p className='chatroomitem_bio'>{bio}</p>
       </div>    
     </Link>
   )
