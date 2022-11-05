@@ -8,12 +8,12 @@ import SearchChat from './NewChat/SearchChat'
 
 const NewChat = () => {
   const context = useContext(mainContext)
-  const {newChat}=context;
+  const {newChat, newGroupToggle, newGroupActive}=context;
   return (
-    <div className={`leftSidebar ${newChat?'':'hidden'}`}>
+    <div className={`leftSidebar ${newChat?'':'hidden'} ${newGroupActive?"hidden":""}`}>
       <Header/>
       <SearchChat/>
-      <NewGroupIcon/>
+      <NewGroupIcon onClick={newGroupToggle}/>
       <NewChatRooms/>
     </div>
   )

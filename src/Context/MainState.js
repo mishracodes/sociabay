@@ -20,7 +20,7 @@ const [isFileAttached, setIsFileAttached] = useState(false)
 const [sendIconChange, setSendIconChange] = useState(false)
 const [mediaModal, setMediaModal] = useState(false)
 const [mediaModalUrl, setMediaModalUrl] = useState("")
-
+const [newGroupActive, setNewGroupActive] = useState(false)
 const settoggleDetails=()=>{
   if(togglePersonDetail)
   settogglePersonDetail(false)
@@ -166,9 +166,25 @@ const attachment = (event) => {
   event.target.value = ''
 }
 
+const addParticipantsToGroup =()=>{
+  console.log("clicked")
+}
+
+const newGroupToggle=()=>{
+
+  if(newGroupActive){
+    setNewGroupActive(false)
+    setnewChat(true)  
+  }
+  else{
+    setNewGroupActive(true)
+    setnewChat(false)
+  }
+
+}
 
   return (
-    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,getuidarr,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat,settogglePersonDetail,togglePersonDetail,settoggleDetails,markAsRead,attachment,attachfileUpload,attachfilesrc,sendIconChange,setSendIconChange,isFileAttached,attachToggle,mediaToggle, mediaModalUrl, mediaModal}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,getuidarr,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat,settogglePersonDetail,togglePersonDetail,settoggleDetails,markAsRead,attachment,attachfileUpload,attachfilesrc,sendIconChange,setSendIconChange,isFileAttached,attachToggle,mediaToggle, mediaModalUrl, mediaModal, newGroupActive, newGroupToggle, addParticipantsToGroup}}>{props.children}</mainContext.Provider>
   )
 }
 

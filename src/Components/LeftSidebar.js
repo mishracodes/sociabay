@@ -6,7 +6,7 @@ import ChatRooms from './Leftsidebar/ChatRooms'
 import mainContext from '../Context/mainContext'
 const LeftSidebar = () => {
   const context = useContext(mainContext)
-  const {personalDetailsT,setLastseen,newChat}=context;
+  const {personalDetailsT,setLastseen,newChat,newGroupActive}=context;
   useEffect(() => {
     const interval = setInterval(() => {
       setLastseen(localStorage.getItem('email'))
@@ -14,9 +14,9 @@ const LeftSidebar = () => {
     return () => clearInterval(interval);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-   
+    
   return (
-    <div className={`leftSidebar ${newChat?'hidden':''} ${personalDetailsT?'hidden':''}`}>
+    <div className={`leftSidebar ${newChat?'hidden':''} ${newGroupActive?'hidden':''} ${personalDetailsT?'hidden':''}`}>
       <Header/>
       <SearchRoom/>
       <ChatRooms/>

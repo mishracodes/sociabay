@@ -46,7 +46,6 @@ const RightMainArea = () => {
       setuserEmail(location.userEmail);
     //  getDetails(id);
     }
-    console.log(isFileAttached);
 return () => {
   settogglePersonDetail(false)
   }

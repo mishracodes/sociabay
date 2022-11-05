@@ -33,9 +33,9 @@
     /* background-color: red; */
     margin-bottom: 5px;
     position: relative;
-    font-size: 14px;
+    font-size: 15px;
 }
-.mainChat_messageLeft div{
+.mainChat_messageLeft .message__main{
     background-color: #30323F;
     padding: 6px 10px;
     display: inline-block;
@@ -58,11 +58,11 @@
     /* text-align: right; */
     margin-bottom: 5px;
     position: relative;
-    font-size: 14px;
+    font-size: 15px;
 
 
 }
-.mainChat_messageRight div{
+.mainChat_messageRight .message__main{
     background-color: #CCFFCE;
     padding: 6px 10px;
     display: inline-block;
@@ -81,14 +81,36 @@
     right: -6px;
 
 }
-.mainChat_messageRight sub{
-    margin: 3px 1px 1px 5px;
+.mainChat_messageRight .timestampTick{
+    display: flex;
+    align-items: flex-end;
+    margin: 3px 3px 1px 5px;
     font-size: 11px;
     color: #5a5b66;
 }
-.mainChat_messageLeft sub{
-    margin: 3px 1px 1px 5px;
+.mainChat_messageLeft .timestampTick{
+    display: flex;
+    align-items: flex-end;
+    margin: 3px 3px 1px 5px;
     font-size: 11px;
     color: #b0b0b7;
 
+}
+.messageDataContainer{
+    display: flex;
+    position: relative;
+}
+.message__text{
+    line-height: 19px
+}
+.chatMoreOptions{
+    position: absolute;
+    right: 0px;
+    top:-5px;
+    visibility: hidden;
+}
+.message__main:hover .chatMoreOptions{
+    visibility: visible;
+    color: #5a5b66;
+    cursor: pointer;
 }

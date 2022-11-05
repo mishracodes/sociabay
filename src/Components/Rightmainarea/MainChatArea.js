@@ -1,27 +1,55 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./MainChatArea.css";
 import LockIcon from "@mui/icons-material/Lock";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { collection, doc, onSnapshot, orderBy, query, updateDoc } from "firebase/firestore";
 import db from "../../firebase";
 import mainContext from "../../Context/mainContext";
 import parse from "html-react-parser";
 import Done from "@mui/icons-material/Done";
 import DoneAll from "@mui/icons-material/DoneAll";
-const MainChatArea = ({ id, username,name }) => {
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+const MainChatArea = ({ id, username, name }) => {
   const [messages, setmessages] = useState();
   const context = useContext(mainContext);
-  const { currentHashId, emojiToggle, markAsRead,mediaToggle } = context;
+  const { currentHashId, emojiToggle, markAsRead, mediaToggle } = context;
   const bottomLine = useRef(null);
   const scrollToBottom = () => {
     bottomLine.current.scrollIntoView({ behavior: "smooth" });
   };
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [currentMsgId, setcurrentMsgId] = useState(null)
+  const open = Boolean(anchorEl);
+  const handleClick = (event,id) => {
+    setAnchorEl(event.currentTarget);
+    setcurrentMsgId(id)
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const deleteMessage =async () => {
+    console.log(currentMsgId);
+    // await deleteDoc(doc(db, "Chats", currentHashId, "message",currentMsgId));
+    const deleteMsgRef = doc(db, "Chats", currentHashId, "message",currentMsgId);
+
+    await updateDoc(deleteMsgRef, {
+      mText: "<p><em>This message was deleted</em></p>",
+      mMedia:""
+
+    });
+  };
   useEffect(() => {
-  
-    const roomsCollectionRef = collection(db, "Chats", currentHashId, "message");
+    const roomsCollectionRef = collection(
+      db,
+      "Chats",
+      currentHashId,
+      "message"
+    );
     const unsub = onSnapshot(
       query(roomsCollectionRef, orderBy("mTimestamp", "asc")),
       (response) => {
-        markAsRead(currentHashId,name)
+        markAsRead(currentHashId, name);
         setmessages(
           response.docs.map((doc) => ({
             id: doc.id,
@@ -33,7 +61,7 @@ const MainChatArea = ({ id, username,name }) => {
     return () => {
       unsub();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentHashId]);
 
   useEffect(() => {
@@ -65,33 +93,56 @@ const MainChatArea = ({ id, username,name }) => {
                 : "mainChat_messageLeft"
             }
           >
-            {/* new Date('1970-01-01T' + timeString + 'Z').toLocaleTimeString('en-US',{timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}) */}
-            <div>
-            {e.data.mMedia && <img alt="" width="300px" src={e.data.mMedia} onClick={()=>{mediaToggle(e.data.mMedia)}}/>}
-              {parse(e.data.mText)}
-              <sub style={{ display: "flex", alignItems: "center", justifyContent:"end" }}>
-                {new Date(e.data.mTimestamp.toDate()).toLocaleString("en-IN", {
-                  timeZone: "Asia/Kolkata",
-                  hour12: true,
-                  hour: "numeric",
-                  minute: "numeric",
-                })}{" "}
-                &nbsp;
-                {username === e.data.mName ? (
-                  e.data.mRecieved === false ? (
-                    <Done sx={{ fontSize: 15 }} />
-                  ) : e.data.mRecieved === true && e.data.mRead === false ? (
-                    <DoneAll sx={{ fontSize: 15 }} />
+            <div className="message__main">
+            <div>{e.data.mMedia && <img alt="" width="300px" src={e.data.mMedia} onClick={()=>{mediaToggle(e.data.mMedia)}}/>}</div>
+
+              <div className="messageDataContainer">
+                <div className="message__text">{parse(e.data.mText)}</div>
+                <div className="timestampTick">
+                  {new Date(e.data.mTimestamp.toDate()).toLocaleString(
+                    "en-IN",
+                    {
+                      timeZone: "Asia/Kolkata",
+                      hour12: true,
+                      hour: "numeric",
+                      minute: "numeric",
+                    }
+                  )}{" "}
+                  &nbsp;
+                  {username === e.data.mName ? (
+                    e.data.mRecieved === false ? (
+                      <Done sx={{ fontSize: 15 }} />
+                    ) : e.data.mRecieved === true && e.data.mRead === false ? (
+                      <DoneAll sx={{ fontSize: 15 }} />
+                    ) : (
+                      <DoneAll sx={{ fontSize: 15, color: "#3bc8ff" }} />
+                    )
                   ) : (
-                    <DoneAll sx={{ fontSize: 15, color: "#3bc8ff" }} />
-                  )
-                ) : (
-                  ""
-                )}
-              </sub>
+                    ""
+                  )}
+                </div>
+                <KeyboardArrowDownIcon className="chatMoreOptions" onClick={(event)=>{handleClick(event,e.id)}}/>
+                
+
+              </div>
             </div>
           </div>
         ))}
+        <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+       
+      >
+        <MenuItem >Message info</MenuItem>
+        <MenuItem >Reply</MenuItem>
+        <MenuItem >React to message</MenuItem>
+        <MenuItem >Forward message</MenuItem>
+        <MenuItem onClick={deleteMessage}>Delete Message</MenuItem>
+
+      </Menu>
       <div ref={bottomLine} />
     </div>
   );
