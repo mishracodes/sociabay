@@ -7,6 +7,7 @@ import RightMainArea from './Components/RightMainArea';
 import PersonalDetails from './Components/PersonalDetails';
 import NewGroup from './Components/NewGroup';
 import mainContext from './Context/mainContext';
+import NewGroupDetails from './Components/NewGroup/NewGroupDetails/NewGroupDetails';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const Home = () => {
 
     <LeftSidebar/>
     {!newGroupDetails && <NewGroup/>}
-    {/* {newGroupDetails && <NewGroup/>} */}
+    {newGroupDetails && <NewGroupDetails/>}
     <NewChat/>
     <PersonalDetails/>
          <Routes>

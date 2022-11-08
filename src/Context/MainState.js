@@ -24,7 +24,7 @@ const [newGroupActive, setNewGroupActive] = useState(false)
 const [currentGroupHashArr, setCurrentGroupHashArr] = useState([])
 const [groupUsersList, setgroupUsersList] = useState([])
 const [groupContactList, setgroupContactList] = useState([])
-
+const [newGroupDetails, setnewGroupDetails] = useState(false)
 
 const settoggleDetails=()=>{
   if(togglePersonDetail)
@@ -95,14 +95,25 @@ const getTimeDiff=(date)=>{
   }
   return t1.toLocaleString("en-IN", {timeZone: 'Asia/Kolkata', hour12:true,hour:'numeric',minute:'numeric',year: 'numeric',month: 'short',day: 'numeric'});
 }
-const getLastseen=(email)=>{
+const getLastseen= async(email,type)=>{
+  if(type==="chat"){
   getDoc(doc(db, 'users', email)).then(docSnap => {
     setlastseenStatus(getTimeDiff(new Date(docSnap.data().lastseen.toDate())))
   })
+}
+else{
+  let participants =""
+  const groupRef = collection(db, "Groups", email, "members")
+  const observer = await getDocs(groupRef)
+  observer.forEach((item)=>{
+    participants=participants+item.data().fullName.split(" ")[0]+', '
+  })
+  setlastseenStatus(participants)
+
+}
   
   
 
-  // console.log(new Date(lastseenStatus.toDate()).toLocaleString("en-IN", {timeZone: 'Asia/Kolkata', hour12:true,hour:'numeric',minute:'numeric'}));
 }
 const updatereadrecipt= async(item)=> {
   const chatRef = collection(db, "Chats", item.uid, "message")
@@ -208,8 +219,24 @@ const newGroupToggle=()=>{
 
 }
 
+const newGroupDetailToggle = () => {
+  if (newGroupDetails) {
+    setnewGroupDetails(false)
+  }
+
+  else {
+    setnewGroupDetails(true)
+  }
+}
+
+const addGroupToggle =()=>{
+  setpersonalDetailsT(false)
+  setNewGroupActive(false)
+  setnewGroupDetails(false)
+}
+
   return (
-    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,getuidarr,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat,settogglePersonDetail,togglePersonDetail,settoggleDetails,markAsRead,attachment,attachfileUpload,attachfilesrc,sendIconChange,setSendIconChange,isFileAttached,attachToggle,mediaToggle, mediaModalUrl, mediaModal, newGroupActive, newGroupToggle, addParticipantsToGroup, currentGroupHashArr, setgroupUsersList, groupUsersList,removeGroupFromParticipants,groupContactList}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,getuidarr,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat,settogglePersonDetail,togglePersonDetail,settoggleDetails,markAsRead,attachment,attachfileUpload,attachfilesrc,sendIconChange,setSendIconChange,isFileAttached,attachToggle,mediaToggle, mediaModalUrl, mediaModal, newGroupActive, newGroupToggle, addParticipantsToGroup, currentGroupHashArr, setgroupUsersList, groupUsersList,removeGroupFromParticipants,groupContactList,newGroupDetails,newGroupDetailToggle,addGroupToggle}}>{props.children}</mainContext.Provider>
   )
 }
 

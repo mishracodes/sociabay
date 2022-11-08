@@ -55,7 +55,7 @@ return () => {
   return (
    <React.Fragment>
       <div className={`rightMainArea ${togglePersonDetail?'rightMainAreaHalf':''}`}>
-        <MainHeader name={name} profileURL={profileURL} settoggleDetails={settoggleDetails} uEmail={userEmail}/>
+        <MainHeader type={location.type} name={name} profileURL={profileURL} settoggleDetails={settoggleDetails} uEmail={userEmail}/>
         {!isFileAttached &&<MainChatArea id={id} username={localStorage.getItem("USERname")} name={location.name} />}
         {isFileAttached && <AttachmentFile/>}
         <Emoji/>

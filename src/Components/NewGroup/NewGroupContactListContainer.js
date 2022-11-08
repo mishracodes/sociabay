@@ -15,7 +15,6 @@ const NewGroupContactListContainer = () => {
         const UserRef = collection(db, "users")
         const observer = await getDocs(UserRef)
         observer.forEach((docSnapshot)=>{
-            console.log(docSnapshot.id, " => ", docSnapshot.data());
             let arr=groupUsersList;
             arr.push({id: docSnapshot.id,
                 data: docSnapshot.data()})
@@ -31,7 +30,7 @@ const NewGroupContactListContainer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
-        <div className="chat-item-container">
+        <div className="chatrooms__container">
             {groupUsersList && groupUsersList.map((e) => {
                 return (
                     <NewGroupContactItems myemail={myemail} email={e.data.email} key={e.id} id={e.id} name={e.data.name} profile={e.data.profile} bio={e.data.about} />

@@ -105,12 +105,14 @@
 }
 .chatMoreOptions{
     position: absolute;
-    right: 0px;
-    top:-5px;
+    right: -10px;
+    top:-6px;
     visibility: hidden;
 }
 .message__main:hover .chatMoreOptions{
     visibility: visible;
-    color: #5a5b66;
+    color: #2a2b31;
     cursor: pointer;
+    background-color: #b5b5be5b;
+    border-radius: 50% 6px 50% 50%;
 }

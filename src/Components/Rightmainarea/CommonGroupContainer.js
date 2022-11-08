@@ -7,7 +7,7 @@ const CommonGroupContainer = () => {
     const [rooms, setrooms] = useState()
   
    useEffect(() => {
-      const roomsCollectionRef = collection(db,"rooms");
+      const roomsCollectionRef = collection(db,"Chats");
       const unsub = onSnapshot(roomsCollectionRef,(response) => {
       setrooms(
         response.docs.map(doc => ({

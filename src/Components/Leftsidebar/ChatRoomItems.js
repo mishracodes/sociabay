@@ -9,7 +9,7 @@ import mainContext from '../../Context/mainContext';
 import db from "../../firebase";
 import parse from "html-react-parser";
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
-const ChatRoomItems = ({id,name,profileURL,Myemail}) => {
+const ChatRoomItems = ({id,name,profileURL,Myemail,type}) => {
   const [lastmsg, setlastmsg] = useState("")
   const [lastMsgTime, setlastMsgTime] = useState("")
   const context = useContext(mainContext)
@@ -34,6 +34,7 @@ const ChatRoomItems = ({id,name,profileURL,Myemail}) => {
   handleClick(id, Myemail)
   const chatRef = collection(db, "Chats", hash, "message")
         const observer = onSnapshot(query(chatRef, orderBy("mTimestamp", "asc")), docSnapshot => {
+      
             const docLength=docSnapshot.docs.length
             if(docLength>0){
               const docData = docSnapshot.docs[docLength-1].data()
@@ -43,9 +44,16 @@ const ChatRoomItems = ({id,name,profileURL,Myemail}) => {
             setlastMsgTime(new Date(docData.mTimestamp.toDate()).toLocaleString("en-IN", { timeZone: 'Asia/Kolkata', hour12: true, hour: 'numeric', minute: 'numeric' }))
             }
             else{
+              if(type==="group"){
+                setlastmsg("You created new group")
+              setlastMsgTime("")
+              }
+              else{
               setlastmsg("")
               setlastMsgTime("")
+              }
             }
+        
             
 
         })
@@ -62,7 +70,9 @@ const ChatRoomItems = ({id,name,profileURL,Myemail}) => {
       <Avatar src={profileURL}/>
       <div className='chatroomitem_detail'>
         <p className='chatroomitem_name'>{name}</p>
-        <div className='chatroomitem_lastMessage'><DoneAllIcon sx={{ fontSize: 16 }}/> {((lastmsg)).length<50?parse(lastmsg):(parse(lastmsg.slice(0,25)+'...'))}</div>
+        <div className='chatroomitem_lastMessage'>
+          {lastmsg!==""&&lastMsgTime!==""&&<DoneAllIcon sx={{ fontSize: 16 }}/> }
+          {((lastmsg)).length<50?parse(lastmsg):(parse(lastmsg.slice(0,25)+'...'))}</div>
       </div> 
       <div>
         <p className='chatroomitem_timestamp'>{lastMsgTime}</p>

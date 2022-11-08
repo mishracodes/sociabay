@@ -5,13 +5,13 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SearchIcon from "@mui/icons-material/Search";
 import mainContext from "../../Context/mainContext";
 
-const MainHeader = ({ name, profileURL,settoggleDetails,uEmail }) => {
+const MainHeader = ({ name, profileURL,settoggleDetails,uEmail,type }) => {
   const context = useContext(mainContext)
   const {getLastseen,lastseenStatus,setlastseenStatus}=context;
   useEffect(() => {
     setlastseenStatus('Click here to get more details')
       if(uEmail){
-      getLastseen(uEmail);
+      getLastseen(uEmail,type);
       }
   
   // eslint-disable-next-line react-hooks/exhaustive-deps
