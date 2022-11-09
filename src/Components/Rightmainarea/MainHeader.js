@@ -13,7 +13,7 @@ const MainHeader = ({ name, profileURL,settoggleDetails,uEmail,type }) => {
       if(uEmail){
       getLastseen(uEmail,type);
       }
-  
+   
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uEmail])
   

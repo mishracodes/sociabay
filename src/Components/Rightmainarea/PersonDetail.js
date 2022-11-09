@@ -8,13 +8,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import BlockIcon from "@mui/icons-material/Block";
 import { IconButton } from "@mui/material";
 import mainContext from "../../Context/mainContext";
-const PersonDetail = ({email}) => {
+const PersonDetail = ({email,type}) => {
   const context = useContext(mainContext);
-  const { getPersonDetails,personDetails } = context;
+  const { getPersonDetails,personDetails,lastseenStatus } = context;
   useEffect(() => {
-    getPersonDetails(email)
+    getPersonDetails(email,type)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email])
+  }, [email,lastseenStatus])
   
   return (
     <div className="PersonDetailContainer">

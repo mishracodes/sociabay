@@ -10,7 +10,7 @@ import DoneAll from "@mui/icons-material/DoneAll";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-const MainChatArea = ({ id, username, name }) => {
+const MainChatArea = ({ id, username, name , type}) => {
   const [messages, setmessages] = useState();
   const context = useContext(mainContext);
   const { currentHashId, emojiToggle, markAsRead, mediaToggle } = context;
@@ -95,8 +95,8 @@ const MainChatArea = ({ id, username, name }) => {
           >
             <div className="message__main">
             <div>{e.data.mMedia && <img alt="" width="300px" src={e.data.mMedia} onClick={()=>{mediaToggle(e.data.mMedia)}}/>}</div>
-
-              <div className="messageDataContainer">
+            {type==="group"&&<div style={{margin:"2px 0 2px 0", fontSize: 12, color:"tomato", fontWeight:"bold"}}>~ {e.data.mName}</div>}
+              <div className="messageDataContainer"> 
                 <div className="message__text">{parse(e.data.mText)}</div>
                 <div className="timestampTick">
                   {new Date(e.data.mTimestamp.toDate()).toLocaleString(

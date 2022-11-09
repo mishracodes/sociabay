@@ -17,6 +17,7 @@ const ChatRoomItems = ({id,name,profileURL,Myemail,type}) => {
   let hash =""
 
   const handleClick=(id,Myemail)=>{
+    if(type==="chat"){
     if(Myemail.localeCompare(id)<0){
       hash = MD5(Myemail+id).toString()
       markAsRead(hash, name)
@@ -27,6 +28,14 @@ const ChatRoomItems = ({id,name,profileURL,Myemail,type}) => {
       markAsRead(hash, name)
       setcurrentHashId(MD5(id+Myemail).toString());
      }
+    }
+    
+  else{
+    hash = MD5(id).toString()
+    markAsRead(hash, name)
+    setcurrentHashId(MD5(id).toString());      
+}
+
   }  
   
 
@@ -62,11 +71,11 @@ const ChatRoomItems = ({id,name,profileURL,Myemail,type}) => {
         }
 
 // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [id,Myemail])
+}, [id,Myemail,type])
 
 
   return (
-    <Link  to={`/home/chat/${id}`} state={{name: name, profile: profileURL,userEmail:id}} className='chatroomitems__container' onClick={()=>{handleClick(id,Myemail)}}>
+    <Link  to={`/home/chat/${id}`} state={{name: name, profile: profileURL,userEmail:id, type:type}} className='chatroomitems__container' onClick={()=>{handleClick(id,Myemail)}}>
       <Avatar src={profileURL}/>
       <div className='chatroomitem_detail'>
         <p className='chatroomitem_name'>{name}</p>

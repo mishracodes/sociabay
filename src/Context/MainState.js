@@ -70,7 +70,9 @@ const toggleEmoji=()=>{
   }
 }
 
-const getPersonDetails=async (email)=>{
+const getPersonDetails=async (email,type)=>{
+  if(type==="chat"){
+
         const docRef = doc(db, "users", email);
          const docSnap = await  getDoc(docRef);
         if (docSnap.exists()) {
@@ -80,7 +82,19 @@ const getPersonDetails=async (email)=>{
         } else {
           console.log("No such document!");
         }
-      
+  }
+  else{
+    const docRef = doc(db, "Groups", email);
+         const docSnap = await  getDoc(docRef);
+        if (docSnap.exists()) {
+          //  setname(docSnap.data().name);
+          setpersonDetails({name:docSnap.data().groupName,email:`Group - ${lastseenStatus.split(",").length-1} participants`,lastseen:"",about:"",phone:"",profile:docSnap.data().profile})
+
+        } else {
+          console.log("No such document!");
+        }
+  }
+
 }
 
 const setLastseen=(email)=>{
@@ -106,7 +120,7 @@ else{
   const groupRef = collection(db, "Groups", email, "members")
   const observer = await getDocs(groupRef)
   observer.forEach((item)=>{
-    participants=participants+item.data().fullName.split(" ")[0]+', '
+    participants=participants+item.data().name.split(" ")[0]+', '
   })
   setlastseenStatus(participants)
 

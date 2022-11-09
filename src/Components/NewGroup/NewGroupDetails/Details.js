@@ -58,10 +58,14 @@ const addParticipantsToGroupdb= ()=>{
  const groupRef = collection(db, "Groups", groupId, "members")
  
    addDoc(groupRef, {
-     fullName: item.data.name,
+     name: item.data.name,
      profile: item.data.profile,
      email: item.id
    })
+   setDoc(doc(db, "users", item.id, "groups", groupId), {
+    groupName: newGroupName,
+    profile: profileUrl
+  })
  })
 }
 

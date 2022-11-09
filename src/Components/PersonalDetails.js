@@ -19,7 +19,7 @@ const PersonalDetails = () => {
     <div className="PersonalDetails__Subcontainer">
       <div className="PDprofilePicSection">
         <img
-          src="https://firebasestorage.googleapis.com/v0/b/sociabaychat.appspot.com/o/images%2FIMG-20200720-WA0002.jpg7a2487aa-8212-4ec0-a02c-721b0ce35ed3?alt=media&token=7398ee14-b6b3-4929-a7d0-c583e85b89bdA"
+          src={localStorage.getItem("USERprofile")}
           alt="profile pic"
         />
         <div className="avatar__hover">

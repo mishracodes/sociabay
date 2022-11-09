@@ -56,13 +56,13 @@ return () => {
    <React.Fragment>
       <div className={`rightMainArea ${togglePersonDetail?'rightMainAreaHalf':''}`}>
         <MainHeader type={location.type} name={name} profileURL={profileURL} settoggleDetails={settoggleDetails} uEmail={userEmail}/>
-        {!isFileAttached &&<MainChatArea id={id} username={localStorage.getItem("USERname")} name={location.name} />}
+        {!isFileAttached &&<MainChatArea type={location.type} id={id} username={localStorage.getItem("USERname")} name={location.name} />}
         {isFileAttached && <AttachmentFile/>}
         <Emoji/>
         <MainMessagebox id={id} username={localStorage.getItem("USERname")} />
       </div>
       <div className={`personDetailContainer ${togglePersonDetail?'':'hidden'}`}>
-      <PersonDetail email={id}/>
+      <PersonDetail type={location.type} email={id}/>
       </div>
       </React.Fragment>
   );
