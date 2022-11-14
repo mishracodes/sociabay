@@ -15,7 +15,7 @@ import SendIcon from '@mui/icons-material/Send';
 
 const MainMessagebox = ({id,username}) => {
   const context = useContext(mainContext)
-  const {currentHashId,toggleEmoji,message,setmessage,lastseenStatus,attachment, sendIconChange, setSendIconChange,attachfileUpload, attachToggle}=context;
+  const {currentHashId,toggleEmoji,message,setmessage,lastseenStatus,attachment, sendIconChange, setSendIconChange,attachfileUpload, attachToggle,attachedfiletype,attachedthumb,attachedfilesize,attachedfilename}=context;
   const [editorState, setEditorState] = React.useState(() =>
   EditorState.createEmpty()
 );
@@ -67,13 +67,13 @@ function handleKeyCommand(command) {
   const sendMessage = (msg) => {
     const msgRef = collection(db, "Chats", currentHashId, "message");
     if (attachfileUpload == null){
-      addDoc(msgRef, { mName:username,mRead:false,mRecieved: lastseenStatus==='Online'?true:false,mText:msg,mTimestamp:new Date(),mMedia: "" });
+      addDoc(msgRef, { mName:username,mRead:false,mRecieved: lastseenStatus==='Online'?true:false,mText:msg,mTimestamp:new Date(),mMedia: {} });
     }
     else{
     const attachRef = ref(storage, `attachment/${currentHashId}/${attachfileUpload.name + v4()}`);
     uploadBytes(attachRef, attachfileUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
-        addDoc(msgRef, { mName:username,mRead:false,mRecieved: lastseenStatus==='Online'?true:false,mText:msg,mTimestamp:new Date(),mMedia: url });
+        addDoc(msgRef, { mName:username,mRead:false,mRecieved: lastseenStatus==='Online'?true:false,mText:msg,mTimestamp:new Date(),mMedia: {url: url, mType: attachedfiletype, mThumb: attachedthumb, mName: attachedfilename,mSize: attachedfilesize} });
       });
     })
     attachToggle() 

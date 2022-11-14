@@ -7,7 +7,7 @@ import mainContext from "../../Context/mainContext";
 
 const MainHeader = ({ name, profileURL,settoggleDetails,uEmail,type }) => {
   const context = useContext(mainContext)
-  const {getLastseen,lastseenStatus,setlastseenStatus}=context;
+  const {getLastseen,lastseenStatus,setlastseenStatus,togglePersonDetail}=context;
   useEffect(() => {
     setlastseenStatus('Click here to get more details')
       if(uEmail){
@@ -16,9 +16,13 @@ const MainHeader = ({ name, profileURL,settoggleDetails,uEmail,type }) => {
    
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uEmail])
-  
+  const headerPersonalDetails=()=>{
+    console.log(togglePersonDetail);
+    if(!togglePersonDetail)
+    settoggleDetails()
+  }
   return (
-    <div className="main__header__container" onClick={settoggleDetails}>
+    <div className="main__header__container" onClick={headerPersonalDetails}>
       <div className="main__header__name" >
         <Avatar src={profileURL} alt="header avatar" />
         <div>

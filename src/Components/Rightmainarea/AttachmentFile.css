@@ -21,4 +21,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+}
+
+.attachmet__pdf__thumb {
+    width: 270px;
+    border-radius: 8px;
+  }
+.attachment__size__extension{
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+.attachment__filename{
+    margin-bottom: 50px;
+    font-size: 16px;
 }

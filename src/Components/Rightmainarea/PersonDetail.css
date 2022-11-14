@@ -14,8 +14,10 @@
 }
 .profilePicSection img{
   width: 200px;
+  height: 200px;
   margin: 40px 0 10px 0;
   border-radius: 50%;
+  object-fit: cover;
 }
 .PersonDetailName{
   font-size: 24px;

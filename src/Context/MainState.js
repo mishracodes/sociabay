@@ -25,6 +25,10 @@ const [currentGroupHashArr, setCurrentGroupHashArr] = useState([])
 const [groupUsersList, setgroupUsersList] = useState([])
 const [groupContactList, setgroupContactList] = useState([])
 const [newGroupDetails, setnewGroupDetails] = useState(false)
+const [attachedfiletype, setattachedfiletype] = useState(null)
+const [attachedfilename, setattachedfilename] = useState(null)
+const [attachedfilesize, setattachedfilesize] = useState(null)
+const [attachedthumb, setattachedthumb] = useState(null)
 
 const settoggleDetails=()=>{
   if(togglePersonDetail)
@@ -190,10 +194,13 @@ const mediaToggle = (media) => {
 const attachment = (event) => {
   setattachfilesrc(URL.createObjectURL(event.target.files[0]))
   setattachfileUpload(event.target.files[0])
-
+  setattachedfiletype(event.target.files[0].type)
+  setattachedfilename(event.target.files[0].name)
+  setattachedfilesize((event.target.files[0].size)/1024)
   attachToggle()
   setSendIconChange(true)
   event.target.value = ''
+  
 }
 
 const addParticipantsToGroup = (email, myemail, name, profile) => {
@@ -250,7 +257,7 @@ const addGroupToggle =()=>{
 }
 
   return (
-    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,getuidarr,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat,settogglePersonDetail,togglePersonDetail,settoggleDetails,markAsRead,attachment,attachfileUpload,attachfilesrc,sendIconChange,setSendIconChange,isFileAttached,attachToggle,mediaToggle, mediaModalUrl, mediaModal, newGroupActive, newGroupToggle, addParticipantsToGroup, currentGroupHashArr, setgroupUsersList, groupUsersList,removeGroupFromParticipants,groupContactList,newGroupDetails,newGroupDetailToggle,addGroupToggle}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,getuidarr,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat,settogglePersonDetail,togglePersonDetail,settoggleDetails,markAsRead,attachment,attachfileUpload,attachfilesrc,sendIconChange,setSendIconChange,isFileAttached,attachToggle,mediaToggle, mediaModalUrl, mediaModal, newGroupActive, newGroupToggle, addParticipantsToGroup, currentGroupHashArr, setgroupUsersList, groupUsersList,removeGroupFromParticipants,groupContactList,newGroupDetails,newGroupDetailToggle,addGroupToggle,attachedfiletype,attachedfilesize,attachedfilename,attachedthumb,setattachedthumb}}>{props.children}</mainContext.Provider>
   )
 }
 
