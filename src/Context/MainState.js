@@ -174,6 +174,12 @@ const attachToggle = () => {
   if (isFileAttached) {
     setIsFileAttached(false)
     setattachfilesrc("")
+    setattachedfiletype(null)
+    setattachedthumb(null)
+    setattachedfilename(null)
+    setattachedfilesize(null)
+    setattachfileUpload(null)
+
   }
   else {
     setIsFileAttached(true)

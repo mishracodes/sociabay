@@ -2,16 +2,18 @@ import React from 'react'
 import './PDFThumbnail.css'
 import pdficon from '../../../Assets/filepdficon.png'
 
-const PDFThumbnail = ({thumbsrc,name,size,type}) => {
-    console.log(name,size,type);
+const PDFThumbnail = ({url,thumbsrc,name,size,type}) => {
+    const openInNewTab = url => {
+        window.open(url, '_blank', 'noopener,noreferrer');
+      };
   return (
-    <div className='thumb__main'>
+    <div className='thumb__main' onClick={() => openInNewTab(url)}>
         <div className="pdf__thumb__container">
           <img src={thumbsrc} alt="" className="pdf__thumb"/>
         </div>
         <div className='pdf__thumb_filename'>
                 <img src={pdficon} alt="" width="26px"/>
-                <p>{name}</p>
+                <p>{name&&name.slice(0,40)}...</p>
         </div>
         <div className='pdf__thumb_details'>
                 <p>{parseInt(size)} kB</p> 

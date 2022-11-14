@@ -1,5 +1,6 @@
 .thumb__main{
     background-color: #aed6af;
+    cursor: pointer;
 }
 .pdf__thumb__container{
     width: 336px;

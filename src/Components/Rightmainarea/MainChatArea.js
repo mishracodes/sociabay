@@ -105,7 +105,7 @@ const MainChatArea = ({ id, username, name , type}) => {
 
             {e.data.mMedia.mType.split("/")[1]==="pdf" && e.data.mMedia.mThumb&& 
             
-            <PDFThumbnail thumbsrc={e.data.mMedia.mThumb} name={e.data.mMedia.mName} size={e.data.mMedia.mSize} type="PDF"/>
+            <PDFThumbnail url={e.data.mMedia.url} thumbsrc={e.data.mMedia.mThumb} name={e.data.mMedia.mName} size={e.data.mMedia.mSize} type="PDF"/>
            } 
             </>
             }</div>
