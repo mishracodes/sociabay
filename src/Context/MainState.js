@@ -8,7 +8,7 @@ const [USER, setUSER] = useState(null);
 const [emojiToggle, setemojiToggle] = useState(false)
 const [message, setmessage] = useState("");
 const [personalDetailsT, setpersonalDetailsT] = useState(false)
-const [personDetails, setpersonDetails] = useState({name:"",email:"",lastseen:"",about:"",phone:"",profile:""})
+const [personDetails, setpersonDetails] = useState({name:"",email:"",lastseen:"",about:"",phone:"",profile:"", groupDesc: ""})
 const [lastseenStatus, setlastseenStatus] = useState('Click here to get more details')
 const [uidarr, setuidarr] = useState([]);
 const [currentHashId,setcurrentHashId] = useState(null)
@@ -29,6 +29,9 @@ const [attachedfiletype, setattachedfiletype] = useState(null)
 const [attachedfilename, setattachedfilename] = useState(null)
 const [attachedfilesize, setattachedfilesize] = useState(null)
 const [attachedthumb, setattachedthumb] = useState(null)
+const [groups, setGroups] = useState()
+const [rooms, setrooms] = useState()
+const [memberDetails, setMemberDetails] = useState([])
 
 const settoggleDetails=()=>{
   if(togglePersonDetail)
@@ -81,7 +84,7 @@ const getPersonDetails=async (email,type)=>{
          const docSnap = await  getDoc(docRef);
         if (docSnap.exists()) {
           //  setname(docSnap.data().name);
-          setpersonDetails({name:docSnap.data().name,email:docSnap.data().email,lastseen:docSnap.data().lastseen,about:docSnap.data().about,phone:docSnap.data().phone,profile:docSnap.data().profile})
+          setpersonDetails({name:docSnap.data().name,email:docSnap.data().email,lastseen:docSnap.data().lastseen,about:docSnap.data().about,phone:docSnap.data().phone,profile:docSnap.data().profile, groupDesc: docSnap.data().groupDesc})
 
         } else {
           console.log("No such document!");
@@ -125,6 +128,9 @@ else{
   const observer = await getDocs(groupRef)
   observer.forEach((item)=>{
     participants=participants+item.data().name.split(" ")[0]+', '
+    var mem=memberDetails
+        mem.push({fullName:item.data().name, profile:item.data().profile})
+        setMemberDetails(mem)
   })
   setlastseenStatus(participants)
 
@@ -263,7 +269,7 @@ const addGroupToggle =()=>{
 }
 
   return (
-    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,getuidarr,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat,settogglePersonDetail,togglePersonDetail,settoggleDetails,markAsRead,attachment,attachfileUpload,attachfilesrc,sendIconChange,setSendIconChange,isFileAttached,attachToggle,mediaToggle, mediaModalUrl, mediaModal, newGroupActive, newGroupToggle, addParticipantsToGroup, currentGroupHashArr, setgroupUsersList, groupUsersList,removeGroupFromParticipants,groupContactList,newGroupDetails,newGroupDetailToggle,addGroupToggle,attachedfiletype,attachedfilesize,attachedfilename,attachedthumb,setattachedthumb}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider  value={{ USER, setUSER,emojiToggle,toggleEmoji,message,setmessage,personalDetailsT,togglepersonalDetailsT,getPersonDetails,personDetails,setLastseen,getLastseen,lastseenStatus,setlastseenStatus,getuidarr,uidarr,updatereadrecipt,getHash,currentHashId,setcurrentHashId,newChatToggle,newChat,settogglePersonDetail,togglePersonDetail,settoggleDetails,markAsRead,attachment,attachfileUpload,attachfilesrc,sendIconChange,setSendIconChange,isFileAttached,attachToggle,mediaToggle, mediaModalUrl, mediaModal, newGroupActive, newGroupToggle, addParticipantsToGroup, currentGroupHashArr, setgroupUsersList, groupUsersList,removeGroupFromParticipants,groupContactList,newGroupDetails,newGroupDetailToggle,addGroupToggle,attachedfiletype,attachedfilesize,attachedfilename,attachedthumb,setattachedthumb,setrooms,rooms,setGroups,groups,memberDetails, setMemberDetails}}>{props.children}</mainContext.Provider>
   )
 }
 

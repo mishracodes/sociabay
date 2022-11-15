@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './ChatRooms.css'
 import ChatRoomItems from './ChatRoomItems'
 import {collection, onSnapshot} from 'firebase/firestore'
 import db from '../../firebase'
+import mainContext from '../../Context/mainContext'
 const ChatRooms = () => {
-  const [rooms, setrooms] = useState()
   const [Myemail, setMyemail] = useState("")
-  const [groups, setGroups] = useState()
+  const context = useContext(mainContext)
+  const {setrooms,rooms,setGroups,groups} = context
    useEffect(() => {
     setMyemail(localStorage.getItem("email"))
     const Myemail=localStorage.getItem("email")
@@ -39,6 +40,7 @@ const ChatRooms = () => {
         unsub()
         groupobserver()
       }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
     
   return (

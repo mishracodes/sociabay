@@ -13,10 +13,11 @@ const ChatRoomItems = ({id,name,profileURL,Myemail,type}) => {
   const [lastmsg, setlastmsg] = useState("")
   const [lastMsgTime, setlastMsgTime] = useState("")
   const context = useContext(mainContext)
-  const {setcurrentHashId,markAsRead}=context;
+  const {setcurrentHashId,markAsRead,setMemberDetails}=context;
   let hash =""
 
   const handleClick=(id,Myemail)=>{
+    setMemberDetails([])
     if(type==="chat"){
     if(Myemail.localeCompare(id)<0){
       hash = MD5(Myemail+id).toString()

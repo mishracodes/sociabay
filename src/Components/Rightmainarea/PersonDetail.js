@@ -11,7 +11,7 @@ import mainContext from "../../Context/mainContext";
 import CloseIcon from '@mui/icons-material/Close';
 const PersonDetail = ({email,type}) => {
   const context = useContext(mainContext);
-  const { getPersonDetails,personDetails,lastseenStatus,settoggleDetails } = context;
+  const { getPersonDetails,personDetails,lastseenStatus,settoggleDetails,memberDetails  } = context;
   useEffect(() => {
     getPersonDetails(email,type)
   // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -32,7 +32,8 @@ const Details = () => {
         setProfileUrl(url)
         const docRef = await addDoc(collection(db, "Groups"), {
           groupName: newGroupName,
-          profile: url
+          profile: url,
+          groupDesc: `Group created by ${localStorage.getItem("USERname")}, on Sunday at 9:00`
           
         });
         setGroupId(docRef.id)
