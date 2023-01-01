@@ -13,9 +13,8 @@ import MenuItem from "@mui/material/MenuItem";
 import PDFThumbnail from "./MessageThumbs/PDFThumbnail";
 
 const MainChatArea = ({ id, username, name , type}) => {
-  const [messages, setmessages] = useState();
   const context = useContext(mainContext);
-  const { currentHashId, emojiToggle, markAsRead, mediaToggle } = context;
+  const { currentHashId, emojiToggle, markAsRead, mediaToggle,messages, setmessages } = context;
   const bottomLine = useRef(null);
   const scrollToBottom = () => {
     bottomLine.current.scrollIntoView({ behavior: "smooth" });

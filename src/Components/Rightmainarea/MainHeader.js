@@ -17,7 +17,6 @@ const MainHeader = ({ name, profileURL,settoggleDetails,uEmail,type }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uEmail])
   const headerPersonalDetails=()=>{
-    console.log(togglePersonDetail);
     if(!togglePersonDetail)
     settoggleDetails()
   }
